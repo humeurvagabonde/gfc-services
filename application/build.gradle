@@ -1,0 +1,19 @@
+
+apply plugin: 'org.springframework.boot'
+
+jar {
+    baseName = 'gfc-services'
+    version = '1.0.0'
+}
+
+dependencies {
+	compile( project( ':compta-budgetaire:api' ) )
+	compile( project( ':compta-budgetaire:implementation' ) )
+	compile( project( ':compta-generale:api' ) )
+	compile( project( ':compta-generale:implementation' ) )
+
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}

@@ -6,24 +6,10 @@
  * user guide available at https://docs.gradle.org/4.0.1/userguide/tutorial_java_projects.html
  */
 buildscript {
-    ext { springBootVersion = '1.5.2.RELEASE' }
+    ext { springBootVersion = '1.5.4.RELEASE' }
     repositories { mavenCentral() }
     dependencies { classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") }
 }
-
-apply plugin: 'org.springframework.boot'
-
-jar {
-    baseName = 'gfc-services'
-    version = '1.0.0'
-}
-
-dependencies {
-    compile('org.springframework.boot:spring-boot-starter-actuator')
-    compile('org.springframework.boot:spring-boot-starter-web')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-}
-
 
 allprojects {
 
@@ -35,6 +21,7 @@ allprojects {
     }
 
     sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
     dependencies {
         testCompile 'junit:junit:4.12'
@@ -45,10 +32,12 @@ configure(subprojects.findAll { it.name.contains('implementation') }) {
 
     apply plugin: "io.spring.dependency-management"
 
-    ext { springBootVersion = '1.5.2.RELEASE' }
+    ext { springBootVersion = '1.5.4.RELEASE' }
 
     dependencies {
         compile('org.springframework.boot:spring-boot-starter')
+        compile('org.springframework.boot:spring-boot-starter-web')
+        
         testCompile('org.springframework.boot:spring-boot-starter-test')
     }
 
