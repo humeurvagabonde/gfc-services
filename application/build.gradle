@@ -1,4 +1,3 @@
-
 apply plugin: 'org.springframework.boot'
 
 jar {
@@ -7,10 +6,11 @@ jar {
 }
 
 dependencies {
-	compile( project( ':compta-budgetaire:api' ) )
-	compile( project( ':compta-budgetaire:implementation' ) )
-	compile( project( ':compta-generale:api' ) )
-	compile( project( ':compta-generale:implementation' ) )
+	// TODO revue de code car pas certain de l'interet ici
+	api( project( ':compta-budgetaire:api' ) )
+	implementation( project( ':compta-budgetaire:implementation' ) )
+	api( project( ':compta-generale:api' ) )
+	implementation( project( ':compta-generale:implementation' ) )
 
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-web')

@@ -13,7 +13,7 @@ buildscript {
 
 allprojects {
 
-    apply plugin: 'java'
+    apply plugin: 'java-library'
     apply plugin: 'eclipse'
 
     repositories {
@@ -25,6 +25,12 @@ allprojects {
 
     dependencies {
         testCompile 'junit:junit:4.12'
+        
+        
+        /* https://github.com/tbroyer/gradle-apt-plugin
+          compileOnly "org.immutables:value:2.2.10:annotations"
+  apt         "org.immutables:value:2.2.10"
+        */
     }
 }
 
@@ -35,10 +41,12 @@ configure(subprojects.findAll { it.name.contains('implementation') }) {
     ext { springBootVersion = '1.5.4.RELEASE' }
 
     dependencies {
-        compile('org.springframework.boot:spring-boot-starter')
-        compile('org.springframework.boot:spring-boot-starter-web')
+        compile 'org.springframework.boot:spring-boot-starter'
+        compile 'org.springframework.boot:spring-boot-starter-web'
+        compile 'javax.inject:javax.inject:1'
         
-        testCompile('org.springframework.boot:spring-boot-starter-test')
+        
+        testCompile 'org.springframework.boot:spring-boot-starter-test'
     }
 
     dependencyManagement {

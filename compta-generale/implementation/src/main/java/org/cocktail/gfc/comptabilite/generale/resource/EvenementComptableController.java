@@ -1,5 +1,8 @@
 package org.cocktail.gfc.comptabilite.generale.resource;
 
+import javax.inject.Inject;
+
+import org.cocktail.gfc.comptabilite.generale.api.HelloComptableEtBudgetaireService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,9 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/compta-generale")
 public class EvenementComptableController {
 
+    @Inject
+    private HelloComptableEtBudgetaireService helloComptableEtBudgetaireService;
+    
     @RequestMapping(value="/hello", method = RequestMethod.GET)
     public String hello() {
-        return "Hello World!";
+        return helloComptableEtBudgetaireService.hello();
     }
     
 }

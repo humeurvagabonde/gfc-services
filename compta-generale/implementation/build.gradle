@@ -1,4 +1,4 @@
 dependencies {
-	compile( project( ':compta-generale:api' ) )
-	compile( project( ':compta-budgetaire:api' ) )
+	api( project( ':compta-generale:api' ) )
+	api( project( ':compta-budgetaire:api' ) )
 }
