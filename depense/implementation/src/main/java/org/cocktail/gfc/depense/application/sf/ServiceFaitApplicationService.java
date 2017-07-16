@@ -9,4 +9,8 @@ import javax.transaction.Transactional;
 @Transactional(rollbackOn = Exception.class)
 public class ServiceFaitApplicationService {
 
+    public Long creer(CreerSfCommand command) {
+        return -1L;
+    }
+    
 }

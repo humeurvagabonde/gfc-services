@@ -7,6 +7,12 @@ Le projet est un multi-projet composé de :
 - *compta-budgetaire* : projet contenant l'API et l'Implementation du domaine comptabilite budgetaire
 - *compta-generale* : projet contenant l'API et l'Implementation du domaine comptabilite budgetaire
 
+Plusieurs conventions existent :
+- <module>-api : toutes les API
+- <module>-implementation : toutes les implementations (JAX-RS, JPA)
+- <module>-search : tous les modules dédiés à la recherche (QueryDsl)
+
+
 Pour lancer l'application, il faut
 - se mettre dans le répertoire application et 
 - lancer ../gradlew bootRun

@@ -5,18 +5,20 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.cocktail.gfc.depense.api.ServiceFaitService;
+import org.cocktail.gfc.depense.application.sf.CreerSfCommand;
 import org.cocktail.gfc.depense.application.sf.ServiceFaitApplicationService;
 
 @Named
 @Singleton
-public class ServiceFaitServiceImpl implements ServiceFaitService {
+public class ClientJavaServiceFaitService implements ServiceFaitService {
 
     @Inject
     private ServiceFaitApplicationService sfAppService;
     
     @Override
     public Long creer(Long idDepEJ, Long exeOrdre, String reference, String commentaire, String dateSf, Long persId, String nomApplication, String lignesSf) {
-        return null;
+        CreerSfCommand command = CreerSfCommand.of(exeOrdre, reference, commentaire, dateSf, persId, nomApplication, lignesSf);
+        return sfAppService.creer(command);
     }
 
     @Override
