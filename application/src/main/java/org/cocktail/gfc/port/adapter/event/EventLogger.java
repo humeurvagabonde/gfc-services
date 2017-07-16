@@ -1,4 +1,4 @@
-package org.cocktail.gfc.event;
+package org.cocktail.gfc.port.adapter.event;
 
 import javax.inject.Named;
 import javax.inject.Singleton;

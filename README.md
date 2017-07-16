@@ -32,10 +32,16 @@ Pour démarrer j'ai trouvé cela moins clair car cela mélange la définition gl
 ## Reste à faire
 
 - [ ] mettre en place des packages selon ports et adapter
-- [ ] mettre en place immutables.github.io pour les Command, les ADT
-- [ ] faire un projet depense-recherche avec querydsl et des dependances propres a tous les projets *-recherche
+- [X] mettre en place immutables.github.io dans gradle
+- [ ] configurer plus finement imutables et gradle (repertoire des classes generees)
+- [ ] configurer immutables pour les Command, les ADT (creer un @ImmutableStyle etc)
+- [ ] faire un projet depense-search avec querydsl et des dependances propres a tous les projets *-search
 - [ ] faire un projet shared ou common
-- [ ] en fonction du découpage on pourra faire de spring.Factories et configuration par librairie
+- [ ] mettre en place JAX-RS
+- [ ] mettre en place JPA 
+- [ ] en fonction du découpage on pourra faire de spring.factories et configuration par librairie
+- [ ] creer interface correspondant aux packages plsql de depense
+- [ ] introduction de PCOllections pour les collections immutables si besoin
 
 ## A discuter
 

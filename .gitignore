@@ -35,3 +35,5 @@ dependency-reduced-pom.xml
 mem*.db
 
 README.html
+/.apt_generated/
+.factorypath

@@ -6,15 +6,27 @@
  * user guide available at https://docs.gradle.org/4.0.1/userguide/tutorial_java_projects.html
  */
 buildscript {
-    ext { springBootVersion = '1.5.4.RELEASE' }
-    repositories { mavenCentral() }
-    dependencies { classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") }
+    ext { 
+    	springBootVersion = '1.5.4.RELEASE'
+    	aptPluginVersion = '0.10'
+	}
+    repositories { 
+    	mavenCentral()
+    	maven {
+	      url "https://plugins.gradle.org/m2/"
+	    }
+	}
+    dependencies { 
+    	classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    	classpath "net.ltgt.gradle:gradle-apt-plugin:${aptPluginVersion}"
+	}
 }
 
 allprojects {
 
     apply plugin: 'java-library'
     apply plugin: 'eclipse'
+    apply plugin: 'net.ltgt.apt'
 
     repositories {
        mavenCentral()
@@ -24,13 +36,10 @@ allprojects {
     targetCompatibility = 1.8
 
     dependencies {
+    	compileOnly "org.immutables:value:2.5.5:annotations"
+  		apt "org.immutables:value:2.5.5"
+    
         testCompile 'junit:junit:4.12'
-        
-        
-        /* https://github.com/tbroyer/gradle-apt-plugin
-          compileOnly "org.immutables:value:2.2.10:annotations"
-  apt         "org.immutables:value:2.2.10"
-        */
     }
 }
 
@@ -43,8 +52,8 @@ configure(subprojects.findAll { it.name.contains('implementation') }) {
     dependencies {
         compile 'org.springframework.boot:spring-boot-starter'
         compile 'org.springframework.boot:spring-boot-starter-web'
+        compile 'org.springframework.boot:spring-boot-starter-data-jpa'
         compile 'javax.inject:javax.inject:1'
-        
         
         testCompile 'org.springframework.boot:spring-boot-starter-test'
     }
