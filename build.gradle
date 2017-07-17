@@ -9,6 +9,7 @@ buildscript {
     ext { 
     	springBootVersion = '1.5.4.RELEASE'
     	aptPluginVersion = '0.10'
+    	shadowVersion = '2.0.1'
 	}
     repositories { 
     	mavenCentral()
@@ -19,6 +20,7 @@ buildscript {
     dependencies { 
     	classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
     	classpath "net.ltgt.gradle:gradle-apt-plugin:${aptPluginVersion}"
+    	classpath "com.github.jengelman.gradle.plugins:shadow:${shadowVersion}"
 	}
 }
 
@@ -53,6 +55,7 @@ configure(subprojects.findAll { it.name.contains('implementation') }) {
         compile 'org.springframework.boot:spring-boot-starter'
         compile 'org.springframework.boot:spring-boot-starter-web'
         compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+        compile("com.h2database:h2")
         compile 'javax.inject:javax.inject:1'
         compile project(':common:common-beans')
         testCompile 'org.springframework.boot:spring-boot-starter-test'
@@ -61,4 +64,55 @@ configure(subprojects.findAll { it.name.contains('implementation') }) {
     dependencyManagement {
         imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
     }
+}
+
+project(':application') {
+	//apply plugin: 'application'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'com.github.johnrengelman.shadow'
+	
+	jar {
+	    baseName = 'gfc-services'
+	    version = '1.0.0'
+	}
+	
+	dependencies {
+		// TODO revue de code car pas certain de l'interet ici
+		compile( project( ':compta-budgetaire:api' ) )
+		compile( project( ':compta-budgetaire:implementation' ) )
+		compile( project( ':compta-generale:api' ) )
+		compile( project( ':compta-generale:implementation' ) )
+		compile( project( ':depense:api' ) )
+		compile( project( ':depense:implementation' ) )
+	
+	    compile('org.springframework.boot:spring-boot-starter-actuator')
+	    compile('org.springframework.boot:spring-boot-starter-web')
+	    
+	    testCompile('org.springframework.boot:spring-boot-starter-test')
+	}
+}
+
+project(':compta-budgetaire:implementation') {
+	dependencies {
+		api( project( ':compta-budgetaire:api' ) )
+	}
+}
+
+project(':compta-generale:implementation') {
+	dependencies {
+		api( project( ':compta-budgetaire:api' ) )
+		api( project( ':compta-generale:api' ) )
+	}
+}
+
+project(':depense:implementation') {
+	dependencies {
+		api( project( ':depense:api' ) )
+	}
+}
+
+project(':depense-search:implementation') {
+	dependencies {
+		api( project( ':depense-search:api' ) )
+	}
 }

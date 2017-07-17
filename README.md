@@ -34,8 +34,7 @@ Le build.gradle principal définit uniquement les infos pour allprojects et subp
 
 Pour démarrer j'ai trouvé cela moins clair car cela mélange la définition globale du multiprojet et la définition de l'application principale.
 
-
-## Reste à faire
+## Reste à faire / étudier
 
 - [ ] mettre en place des packages selon ports et adapter (en deux versions : l'une complete et l'autre allegée par exemple pour depense-sf-plsql qui nécessite trop d'indirection)
 - [X] mettre en place immutables.github.io dans gradle
@@ -43,7 +42,8 @@ Pour démarrer j'ai trouvé cela moins clair car cela mélange la définition gl
 - [ ] configurer immutables pour les Command, les ADT (creer un @ImmutableStyle etc)
 - [ ] faire un projet depense-search avec querydsl et des dependances propres a tous les projets *-search
 - [X] faire un projet shared ou common
-- [ ] mettre en place JAX-RS
+- [ ] dans les projets API définir des interfaces Feign pour générer automatiquement les clients Http (a la palce des clients jersey)
+- [ ] mettre en place JAX-RS a la place de Spring MVC
 - [ ] mettre en place JPA 
 - [ ] en fonction du découpage on pourra faire de spring.factories et configuration par librairie
 - [ ] creer interface correspondant aux packages plsql de depense-SF

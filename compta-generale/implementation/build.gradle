@@ -1,4 +1,0 @@
-dependencies {
-	api( project( ':compta-generale:api' ) )
-	api( project( ':compta-budgetaire:api' ) )
-}
