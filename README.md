@@ -37,12 +37,12 @@ Pour démarrer j'ai trouvé cela moins clair car cela mélange la définition gl
 ## Reste à faire / étudier
 
 - [ ] mettre en place des packages selon ports et adapter (en deux versions : l'une complete et l'autre allegée par exemple pour depense-sf-plsql qui nécessite trop d'indirection)
-- [X] mettre en place immutables.github.io dans gradle
+- [x] mettre en place immutables.github.io dans gradle
 - [ ] configurer plus finement immutables et gradle (repertoire des classes generees)
 - [ ] configurer immutables pour les Command, les ADT (creer un @ImmutableStyle etc)
 - [ ] faire un projet depense-search avec querydsl et des dependances propres a tous les projets *-search
-- [X] faire un projet shared ou common
-- [ ] dans les projets API définir des interfaces Feign pour générer automatiquement les clients Http (a la palce des clients jersey)
+- [x] faire un projet shared ou common
+- [ ] dans les projets API définir des interfaces Feign pour générer automatiquement les clients Http ; a la place des clients jersey
 - [ ] mettre en place JAX-RS a la place de Spring MVC
 - [ ] mettre en place JPA 
 - [ ] en fonction du découpage on pourra faire de spring.factories et configuration par librairie
