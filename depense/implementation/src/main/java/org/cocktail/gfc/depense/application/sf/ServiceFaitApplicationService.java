@@ -5,6 +5,7 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.transaction.Transactional;
 
+import org.cocktail.gfc.depense.api.CreerSfCommand;
 import org.cocktail.gfc.depense.api.ServiceFaitService;
 import org.cocktail.gfc.depense.metier.modele.sf.ServiceFaitCycleVieService;
 
@@ -18,12 +19,6 @@ public class ServiceFaitApplicationService implements ServiceFaitService {
     
     public Long creer(CreerSfCommand command) {
         return -1L;
-    }
-
-    @Override
-    public Long creer(org.cocktail.gfc.depense.api.CreerSfCommand command) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     @Override

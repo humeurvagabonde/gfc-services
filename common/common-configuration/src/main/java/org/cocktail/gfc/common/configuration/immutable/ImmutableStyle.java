@@ -11,7 +11,7 @@ import org.immutables.value.Value;
 @Retention(RetentionPolicy.CLASS) // Make it class retention for incremental compilation
 @Value.Style(
     typeAbstract = { "Abstract*" }, // 'Abstract' prefix will be detected and trimmed
-    typeImmutable = "Cktl*", // No prefix or suffix for generated immutable type
+    typeImmutable = "*", // No prefix or suffix for generated immutable type
     defaults = @Value.Immutable(copy = false) // Disable copy methods by default
 )
 public @interface ImmutableStyle {
