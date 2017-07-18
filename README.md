@@ -18,9 +18,9 @@ On peut afficher la structure du multiprojet avec la commande 'gradle -q project
 ### Conventions
 
 Plusieurs conventions existent :
-- <module>-api : les interfaces de services
-- <module>-implementation : les adapters (JAX-RS, JPA) + les modeles métiers (applicationService, entites
-- <module>-search : modules optimisés pour les recherches (QueryDsl)
+- module-api : les interfaces de services
+- module-implementation : les adapters (JAX-RS, JPA) + les modeles métiers (applicationService, entites
+- module-search : modules optimisés pour les recherches (QueryDsl)
 
 ### Execution
 
@@ -61,19 +61,19 @@ Pour démarrer j'ai trouvé cela moins clair car cela mélange la définition gl
 ## Reste à faire / étudier
 
 - [x] mettre en place des packages selon ports et adapter
-- [ ] tester un projet implementation dédiée pour les adapters
-- [ ] etudier spring integration : gateway ou service activator
+- [ ] tester un projet implementation dédiée pour les adapters
+- [ ] etudier spring integration : gateway ou service activator
 - [x] mettre en place immutables.github.io dans gradle
-- [ ] configurer plus finement immutables et gradle (repertoire des classes generees)
+- [ ] configurer plus finement immutables et gradle (repertoire des classes generees)
 - [x] creer un @ImmutableStyle : identique a Lagom pour débuter
-- [ ] configurer immutables pour les Command, les ADT 
-- [ ] faire un projet depense-search avec querydsl et des dependances propres a tous les projets *-search
+- [ ] configurer immutables pour les Command, les ADT 
+- [ ] faire un projet depense-search avec querydsl et des dependances propres a tous les projets *-search
 - [x] faire un projet shared ou common
-- [ ] dans les projets API définir des interfaces Feign pour remplacer les clients jersey
-- [ ] mettre en place JAX-RS a la place de Spring MVC
-- [ ] mettre en place JPA 
-- [ ] en fonction du découpage on pourra faire de spring.factories et configuration par librairie
-- [ ] creer interface correspondant aux packages plsql de depense-SF
+- [ ] dans les projets API définir des interfaces Feign pour remplacer les clients jersey
+- [ ] mettre en place JAX-RS a la place de Spring MVC
+- [ ] mettre en place JPA 
+- [ ] en fonction du découpage on pourra faire de spring.factories et configuration par librairie
+- [ ] creer interface correspondant aux packages plsql de depense-SF
 - [ ] introduction de PCollections pour les collections immutables si besoin
 
 ## A discuter
