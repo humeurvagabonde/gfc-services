@@ -47,7 +47,7 @@ allprojects {
 configure(subprojects.findAll { it.name.contains('api') }) {
 
 	dependencies {
-		compileOnly project(':common:common-configuration')
+		compileOnly project(':common:common-configuration-internal')
 	}
 }
 
@@ -64,6 +64,7 @@ configure(subprojects.findAll { it.name.contains('implementation') }) {
         compile 'org.springframework.boot:spring-boot-starter-data-jpa'
         compile("com.h2database:h2")
         compile 'javax.inject:javax.inject:1'
+        
         testCompile 'org.springframework.boot:spring-boot-starter-test'
     }
 

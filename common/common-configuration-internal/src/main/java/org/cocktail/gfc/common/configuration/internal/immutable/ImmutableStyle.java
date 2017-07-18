@@ -1,4 +1,4 @@
-package org.cocktail.gfc.common.configuration.immutable;
+package org.cocktail.gfc.common.configuration.internal.immutable;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

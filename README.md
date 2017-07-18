@@ -12,6 +12,7 @@ Le projet est un multi-projet composé de :
 - *compta-generale* : domaine comptabilite budgetaire
 - *depense* : domaine de la dépense
 - *depense-search* : sous-domaine des recherches de la chaine de la depense
+- *common* : classes communes (configuration, ...)
 
 On peut afficher la structure du multiprojet avec la commande 'gradle -q projects'
 

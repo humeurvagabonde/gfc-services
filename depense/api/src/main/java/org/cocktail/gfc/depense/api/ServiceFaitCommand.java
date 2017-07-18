@@ -1,6 +1,6 @@
 package org.cocktail.gfc.depense.api;
 
-import org.cocktail.gfc.common.configuration.immutable.ImmutableStyle;
+import org.cocktail.gfc.common.configuration.internal.immutable.ImmutableStyle;
 import org.immutables.value.Value;
 
 public interface ServiceFaitCommand {
