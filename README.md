@@ -36,21 +36,24 @@ Pour démarrer j'ai trouvé cela moins clair car cela mélange la définition gl
 
 ## Reste à faire / étudier
 
-- [ ] mettre en place des packages selon ports et adapter (en deux versions : l'une complete et l'autre allegée par exemple pour depense-sf-plsql qui nécessite trop d'indirection)
+- [x] mettre en place des packages selon ports et adapter
+- [ ] etudier spring integration : service invocation, gateway ou service activator
 - [x] mettre en place immutables.github.io dans gradle
 - [ ] configurer plus finement immutables et gradle (repertoire des classes generees)
-- [ ] configurer immutables pour les Command, les ADT (creer un @ImmutableStyle etc)
+- [x] creer un @ImmutableStyle : indetique a Lagom pour débuter
+- [ ] configurer immutables pour les Command, les ADT 
 - [ ] faire un projet depense-search avec querydsl et des dependances propres a tous les projets *-search
 - [x] faire un projet shared ou common
-- [ ] dans les projets API définir des interfaces Feign pour générer automatiquement les clients Http ; a la place des clients jersey
+- [ ] dans les projets API définir des interfaces Feign pour remplacer les clients jersey
 - [ ] mettre en place JAX-RS a la place de Spring MVC
 - [ ] mettre en place JPA 
 - [ ] en fonction du découpage on pourra faire de spring.factories et configuration par librairie
 - [ ] creer interface correspondant aux packages plsql de depense-SF
-- [ ] introduction de PCOllections pour les collections immutables si besoin
+- [ ] introduction de PCollections pour les collections immutables si besoin
 
 ## A discuter
 
 - fusionner application dans gfc-services
 - l'utilisation de java-library
+- separer dans un jar la partie port.adapter
 

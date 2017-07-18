@@ -1,4 +1,4 @@
-package org.cocktail.gfc.comptabilite.generale.hello;
+package org.cocktail.gfc.comptabilite.generale.application.hello;
 
 import javax.inject.Inject;
 import javax.inject.Named;

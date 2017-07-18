@@ -2,8 +2,7 @@ package org.cocktail.gfc.depense.api;
 
 public interface ServiceFaitService {
     
-    Long creer(Long idDepEJ, Long exeOrdre, String reference, 
-            String commentaire, String dateSf, Long persId, String nomApplication, String lignesSf);
+    Long creer(CreerSfComman command);
     
     void mettreAJour(Long idDepSf, String reference, String commentaire, String dateSf, 
             Long persId, Long persOdModification, String lignesSf);

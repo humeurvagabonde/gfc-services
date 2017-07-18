@@ -1,4 +1,4 @@
-package org.cocktail.gfc.comptabilite.budgetaire.hello;
+package org.cocktail.gfc.comptabilite.budgetaire.application.hello;
 
 import javax.inject.Named;
 import javax.inject.Singleton;

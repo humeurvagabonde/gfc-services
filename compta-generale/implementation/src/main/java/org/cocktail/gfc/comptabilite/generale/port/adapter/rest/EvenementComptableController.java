@@ -1,4 +1,4 @@
-package org.cocktail.gfc.comptabilite.generale.resource;
+package org.cocktail.gfc.comptabilite.generale.port.adapter.rest;
 
 import javax.inject.Inject;
 

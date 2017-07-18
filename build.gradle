@@ -39,10 +39,16 @@ allprojects {
 
     dependencies {
     	compileOnly "org.immutables:value:2.5.5:annotations"
-  		apt "org.immutables:value:2.5.5"
-    
+		apt "org.immutables:value:2.5.5"
         testCompile 'junit:junit:4.12'
     }
+}
+
+configure(subprojects.findAll { it.name.contains('api') }) {
+
+	dependencies {
+		compileOnly project(':common:common-configuration')
+	}
 }
 
 configure(subprojects.findAll { it.name.contains('implementation') }) {
@@ -54,10 +60,10 @@ configure(subprojects.findAll { it.name.contains('implementation') }) {
     dependencies {
         compile 'org.springframework.boot:spring-boot-starter'
         compile 'org.springframework.boot:spring-boot-starter-web'
+        compile 'org.springframework.boot:spring-boot-starter-jdbc'
         compile 'org.springframework.boot:spring-boot-starter-data-jpa'
         compile("com.h2database:h2")
         compile 'javax.inject:javax.inject:1'
-        compile project(':common:common-beans')
         testCompile 'org.springframework.boot:spring-boot-starter-test'
     }
 
@@ -76,8 +82,8 @@ project(':application') {
 	    version = '1.0.0'
 	}
 	
+	// TODO : discuter de ces dependances
 	dependencies {
-		// TODO revue de code car pas certain de l'interet ici
 		compile( project( ':compta-budgetaire:api' ) )
 		compile( project( ':compta-budgetaire:implementation' ) )
 		compile( project( ':compta-generale:api' ) )
