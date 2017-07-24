@@ -128,11 +128,32 @@ project(':app-wo') {
 	apply from: "$serviceBuildUrl/libraries-wo-543.gradle?private_token=${gitlabToken}"
 	apply from: "$serviceBuildUrl/libraries-wonder-550.gradle?private_token=${gitlabToken}"
     
+
+    
+    task list {
+	    doLast {
+    		// Create a file tree with a base directory
+			FileTree tree = fileTree(dir: '..')
+			
+			// Add include and exclude patterns to the tree
+			tree.include '**/*.java'
+	
+	        println "Contents"
+	        tree.getFiles().collect { relativePath(it) }.sort().each { println it }
+	    }
+	}
+    
 	sourceSets {
 	    main {
 	        java { srcDir 'Sources' }
 	        resources { srcDir 'Resources' }
 	    }
+	    
+	    generated {
+     		java {
+        	    srcDirs = ['build/generated/java']
+        	}
+    	}
 	}
 	
 	dependencies {
