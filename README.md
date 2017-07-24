@@ -64,25 +64,27 @@ Pour démarrer j'ai trouvé cela moins clair car cela mélange la définition gl
 
 ## Reste à faire / étudier
 
-- [x] mettre en place des packages selon ports et adapter
+
 - [ ] tester un projet implementation dédiée pour les adapters
 - [ ] dans implementation, définir les mappers avec mapstruct. Dep gradle deja en place.
 - [ ] mettre en place une regle de type ImportControl checkstyle qui verifie les imports
 - [ ] etudier spring integration : gateway ou service activator
-- [x] mettre en place immutables.github.io dans gradle
 - [ ] configurer plus finement immutables et gradle ; repertoire des classes generees
-- [x] creer un @ImmutableStyle : identique a Lagom pour débuter
 - [ ] configurer immutables pour les Command, les ADT
 - [ ] faire un projet depense-search avec querydsl et des dependances propres a tous les projets <module>-search
-- [x] faire un projet shared ou common
 - [ ] dans les projets API définir des interfaces Feign pour remplacer les clients jersey
-- [x] mettre en place JAX-RS a la place de Spring MVC
-- [x] mettre en place Spring jdbc + tx
 - [ ] mettre en place JPA
 - [ ] mettre en place QueryDsl
 - [ ] en fonction du découpage on pourra faire de spring.factories et configuration par librairie
 - [ ] creer interface correspondant aux packages plsql de depense-SF
 - [ ] introduction de PCollections pour les collections immutables si besoin
+- [x] mettre en place des packages selon ports et adapter
+- [x] mettre en place immutables.github.io dans gradle
+- [x] creer un @ImmutableStyle : identique a Lagom pour débuter
+- [x] mettre en place JAX-RS a la place de Spring MVC
+- [x] mettre en place Spring jdbc + tx
+- [x] faire un projet shared ou common
+
 
 ## A discuter
 
