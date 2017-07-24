@@ -8,8 +8,10 @@ public interface ServiceFaitCommand {
     @Value.Immutable
     @ImmutableStyle
     public interface AbstractCreerSfCommand extends ServiceFaitCommand {
+      @Value.Parameter
+      Long getEjId();
       @Value.Parameter      
-      Long getExeOrdre();
+      Integer getExeOrdre();
       @Value.Parameter
       String getReference();
       @Value.Parameter

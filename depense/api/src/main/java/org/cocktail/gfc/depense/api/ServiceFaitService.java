@@ -18,6 +18,18 @@ public interface ServiceFaitService {
     void annulerCertification(Long idDepSf, Long persIdModification);
     
     /*
+     *   PROCEDURE ins_sf(
+      a_id_dep_sf IN OUT  DEP_SF.id_dep_sf%TYPE,
+      a_num_sf       OUT  DEP_SF.num_sf%TYPE,
+      a_id_dep_ej         DEP_SF.id_dep_ej%TYPE,
+      a_exe_ordre         DEP_SF.exe_ordre%TYPE,
+      a_reference         DEP_SF.reference_sf%TYPE,
+      a_commentaire       DEP_SF.commentaire%TYPE,
+      a_date_sf           DEP_SF.date_sf%TYPE,
+      a_pers_id_sf        DEP_SF.pers_id_sf%TYPE,
+      a_tyap_strid        ADM_TYPE_APPLICATION.tyap_strid%TYPE,
+      a_chaine_lignes     CLOB);
+    
         PROCEDURE ins_repart_budget_lignesf (
           a_repartbudget_id IN OUT   DEP_REPART_BUDGET.ID_DEP_REPART_BUDGET%TYPE,
           a_sf_id                DEP_SF.ID_DEP_SF%TYPE,

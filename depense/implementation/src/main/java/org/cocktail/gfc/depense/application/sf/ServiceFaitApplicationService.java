@@ -18,6 +18,7 @@ public class ServiceFaitApplicationService implements ServiceFaitService {
     private ServiceFaitCycleVieService sfCycleVieService;
     
     public Long creer(CreerSfCommand command) {
+        sfCycleVieService.insererSf(command);
         return -1L;
     }
 

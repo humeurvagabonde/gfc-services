@@ -25,11 +25,11 @@ package org.cocktail.gfc;
 
 import java.util.Properties;
 
+import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -54,7 +54,7 @@ public class DatabaseConfig {
 
     private static final Logger LOG = LoggerFactory.getLogger(DatabaseConfig.class);
 
-    @Autowired
+    @Inject
     private Environment env;
     
     // DATASOURCE
@@ -77,7 +77,6 @@ public class DatabaseConfig {
     }
 
     // Transactions
-
     @Bean
     public PlatformTransactionManager txManager(DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);

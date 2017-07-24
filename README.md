@@ -77,7 +77,9 @@ Pour démarrer j'ai trouvé cela moins clair car cela mélange la définition gl
 - [x] faire un projet shared ou common
 - [ ] dans les projets API définir des interfaces Feign pour remplacer les clients jersey
 - [x] mettre en place JAX-RS a la place de Spring MVC
-- [ ] mettre en place Spring jdbc + JPA + tx
+- [x] mettre en place Spring jdbc + tx
+- [ ] mettre en place JPA
+- [ ] mettre en place QueryDsl
 - [ ] en fonction du découpage on pourra faire de spring.factories et configuration par librairie
 - [ ] creer interface correspondant aux packages plsql de depense-SF
 - [ ] introduction de PCollections pour les collections immutables si besoin
