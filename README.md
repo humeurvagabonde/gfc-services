@@ -52,7 +52,9 @@ Le projet s'appuie sur :
 - gradle 4.0.1 exposé via le wrapper (gradlew)
 - un multiprojet gradle
 - une séparation api / implementation au niveau organisation et en utilisant le plugin java-library
-- un test ou une ressource Rest de 'compta-generale' consomme un service de 'compta-budgetaire' et lève un évenement affiché dans la console d'erreur : [Ressource test](http://localhost:8080/compta-generale/hello)
+- un test Rest où une ressource de 'compta-generale' consomme un service de 'compta-budgetaire' et lève un évenement affiché dans la console d'erreur : [Ressource test](http://localhost:9000/api/v1/gfc/compta-generale/hello)
+- accès a spring actuator. [Ressource Health](http://localhost:9001/health)
+- le starter Spring donne accès a sl4f et logback par défaut. Conf logback-spring.xml disponible dans app-spring.
 
 ### Multiprojet gradle
 
@@ -64,18 +66,18 @@ Pour démarrer j'ai trouvé cela moins clair car cela mélange la définition gl
 
 - [x] mettre en place des packages selon ports et adapter
 - [ ] tester un projet implementation dédiée pour les adapters
-- [ ] mettre en place mapStruct
-- [ ] mettre en place une regle (ImportControl) checkstyle (+ plugin gradle) qui verifie les imports
+- [ ] dans implementation, définir les mappers avec mapstruct. Dep gradle deja en place.
+- [ ] mettre en place une regle de type ImportControl checkstyle qui verifie les imports
 - [ ] etudier spring integration : gateway ou service activator
 - [x] mettre en place immutables.github.io dans gradle
-- [ ] configurer plus finement immutables et gradle (repertoire des classes generees)
+- [ ] configurer plus finement immutables et gradle ; repertoire des classes generees
 - [x] creer un @ImmutableStyle : identique a Lagom pour débuter
 - [ ] configurer immutables pour les Command, les ADT
 - [ ] faire un projet depense-search avec querydsl et des dependances propres a tous les projets <module>-search
 - [x] faire un projet shared ou common
 - [ ] dans les projets API définir des interfaces Feign pour remplacer les clients jersey
-- [ ] mettre en place JAX-RS a la place de Spring MVC
-- [ ] mettre en place JPA
+- [x] mettre en place JAX-RS a la place de Spring MVC
+- [ ] mettre en place Spring jdbc + JPA + tx
 - [ ] en fonction du découpage on pourra faire de spring.factories et configuration par librairie
 - [ ] creer interface correspondant aux packages plsql de depense-SF
 - [ ] introduction de PCollections pour les collections immutables si besoin

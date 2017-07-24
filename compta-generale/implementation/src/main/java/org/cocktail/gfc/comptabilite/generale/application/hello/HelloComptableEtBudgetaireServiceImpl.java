@@ -7,12 +7,16 @@ import javax.inject.Singleton;
 import org.cocktail.gfc.comptabilite.budgetaire.api.HelloBudgetaireService;
 import org.cocktail.gfc.comptabilite.generale.api.HelloComptaGeneraleSentEvent;
 import org.cocktail.gfc.comptabilite.generale.api.HelloComptableEtBudgetaireService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 
 @Named
 @Singleton
 public class HelloComptableEtBudgetaireServiceImpl implements HelloComptableEtBudgetaireService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(HelloComptableEtBudgetaireService.class);
+    
     @Inject
     private HelloBudgetaireService helloBudgetaireService;
     
@@ -21,6 +25,7 @@ public class HelloComptableEtBudgetaireServiceImpl implements HelloComptableEtBu
     
     @Override
     public String hello() {
+        LOGGER.info("Into compta generale hello method");
         String hello = helloBudgetaireService.hello() + " et compta-generale";
         publisher.publishEvent(new HelloComptaGeneraleSentEvent());
         return hello;

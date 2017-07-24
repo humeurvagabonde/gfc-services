@@ -33,6 +33,14 @@ allprojects {
 
     repositories {
        mavenCentral()
+       mavenLocal()
+       maven {
+        	credentials {
+            	username nexusDevUserName
+            	password nexusDevPassword
+        	}
+            url "http://nexus.intra-cocktail.org/content/groups/public/"
+        }
     }
 
     sourceCompatibility = 1.8
@@ -61,10 +69,12 @@ configure(subprojects.findAll { it.name.contains('implementation') }) {
     dependencies {
         compile 'org.springframework.boot:spring-boot-starter'
         compile 'org.springframework.boot:spring-boot-starter-web'
+        compile 'org.springframework.boot:spring-boot-starter-jersey'
         compile 'org.springframework.boot:spring-boot-starter-jdbc'
         compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-        compile("com.h2database:h2")
         compile 'javax.inject:javax.inject:1'
+		compile 'org.mapstruct:mapstruct-jdk8:1.1.0.Final'
+	    apt 'org.mapstruct:mapstruct-processor:1.1.0.Final'
         
         testCompile 'org.springframework.boot:spring-boot-starter-test'
     }
@@ -96,6 +106,10 @@ project(':app-spring') {
 	    compile('org.springframework.boot:spring-boot-starter-actuator')
 	    compile('org.springframework.boot:spring-boot-starter-web')
 	    
+	    compile 'commons-codec:commons-codec:1.10'
+	    compile 'com.oracle:ojdbc6:11.2.0.3'
+	    compile 'com.zaxxer:HikariCP:2.6.1'
+	    
 	    testCompile('org.springframework.boot:spring-boot-starter-test')
 	}
 }
@@ -124,6 +138,8 @@ project(':app-wo') {
 	    compile "cocktail.fwk:FwkCktlRestServices:$fwkVersion"
 	    compile "com.oracle:ojdbc6:11.2.0.3"
 	    compile "org.reflections:reflections:0.9.9"
+	    compile "cocktail.libs:generateur-controleur-wo-compile:0.1.0"
+	    compile "cocktail.libs:generateur-controleur-wo-runtime:0.1.0"
 	}
 }
 
