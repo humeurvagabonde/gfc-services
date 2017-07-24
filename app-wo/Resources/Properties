@@ -1,0 +1,26 @@
+IAuthProvider=org.cocktail.fwkcktlrestservices.serveur.authentification.SQLAuthProvider
+
+# Si er.javamail.centralize = true, tous les mails sont envoyés à 'er.javamail.adminEmail' (qui doit être renseigné) 
+er.javamail.centralize = false
+er.javamail.adminEmail = mail@asso-cocktail.fr
+er.javamail.defaultEncoding = utf-8
+
+# POOL JDBC
+maximumPoolSize=10
+
+# Misc
+er.extensions.stackTrace.cleanup=true
+# WebObject multithreading.
+WOAllowsConcurrentRequestHandling=true
+
+# EOF
+er.extensions.ERXEC.safeLocking=true
+er.extensions.ERXEC.useSharedEditingContext=false
+er.extensions.ERXEnterpriseObject.applyRestrictingQualifierOnInsert=true
+er.extensions.ERXEnterpriseObject.updateInverseRelationships=true
+
+ERXRest.accessControlAllowOrigin=*
+ERXRest.accessControlAllowRequestMethods=PUT,DELETE,POST,GET,OPTIONS
+# Activation de la compression pour les json
+er.extensions.ERXApplication.responseCompressionEnabled=true
+er.extensions.ERXApplication.responseCompressionTypes=("application/x-javascript", "application/json") 

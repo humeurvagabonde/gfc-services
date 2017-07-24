@@ -6,6 +6,7 @@
  * user guide available at https://docs.gradle.org/4.0.1/userguide/tutorial_java_projects.html
  */
 buildscript {
+	apply from: "$serviceBuildUrl/cocktail.buildscript.gradle?private_token=${gitlabToken}"
     ext { 
     	springBootVersion = '1.5.4.RELEASE'
     	aptPluginVersion = '0.10'
@@ -73,7 +74,7 @@ configure(subprojects.findAll { it.name.contains('implementation') }) {
     }
 }
 
-project(':application') {
+project(':app-spring') {
 	//apply plugin: 'application'
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'com.github.johnrengelman.shadow'
@@ -96,6 +97,33 @@ project(':application') {
 	    compile('org.springframework.boot:spring-boot-starter-web')
 	    
 	    testCompile('org.springframework.boot:spring-boot-starter-test')
+	}
+}
+
+project(':app-wo') {
+	group = "cocktail.application"
+    project.ext.artifact = 'gfc-services-app-wo'
+    project.ext.year = '2017'
+
+    apply plugin: 'maven'
+	apply plugin: 'cocktail'
+	apply from: "$serviceBuildUrl/cocktail.gradle?private_token=${gitlabToken}"
+	apply from: "$serviceBuildUrl/cocktail-application.main.gradle?private_token=${gitlabToken}"
+	apply from: "$serviceBuildUrl/libraries.gradle?private_token=${gitlabToken}"
+	apply from: "$serviceBuildUrl/libraries-wo-543.gradle?private_token=${gitlabToken}"
+	apply from: "$serviceBuildUrl/libraries-wonder-550.gradle?private_token=${gitlabToken}"
+    
+	sourceSets {
+	    main {
+	        java { srcDir 'Sources' }
+	        resources { srcDir 'Resources' }
+	    }
+	}
+	
+	dependencies {
+	    compile "cocktail.fwk:FwkCktlRestServices:$fwkVersion"
+	    compile "com.oracle:ojdbc6:11.2.0.3"
+	    compile "org.reflections:reflections:0.9.9"
 	}
 }
 
