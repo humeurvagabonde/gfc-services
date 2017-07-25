@@ -1,0 +1,14 @@
+{
+  "mappings": {
+    "numbers": [
+      {
+        "total": {
+          "from": 12,
+          "to": 12
+        },
+        "decimals": 2,
+        "class": "java.math.BigDecimal"
+      }
+    ]
+  }
+}

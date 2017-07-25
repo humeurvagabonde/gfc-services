@@ -73,6 +73,7 @@ configure(subprojects.findAll { it.name.contains('implementation') }) {
         compile 'org.springframework.boot:spring-boot-starter-jdbc'
         compile 'org.springframework.boot:spring-boot-starter-data-jpa'
         compile 'javax.inject:javax.inject:1'
+        compile 'com.querydsl:querydsl-sql:4.1.3'
 		compile 'org.mapstruct:mapstruct-jdk8:1.1.0.Final'
 	    apt 'org.mapstruct:mapstruct-processor:1.1.0.Final'
         
@@ -82,6 +83,39 @@ configure(subprojects.findAll { it.name.contains('implementation') }) {
     dependencyManagement {
         imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
     }
+}
+
+configure(subprojects.findAll { it.path.contains('search') }) {
+	configurations { drivers }
+	
+	sourceSets {
+		generated {
+			java
+		}
+	}
+	
+	dependencies {
+    	drivers 'com.oracle:ojdbc6:11.2.0.3'
+    	drivers 'com.oracle:xdb6:11.2.0.4'
+    }
+
+	task rmQ(type: Delete) {
+	    delete fileTree(dir: "src/main/java/org/cocktail/gfc/support/querydsl4", include: "Q*")
+	}
+
+	if (project.hasProperty('queryDSLDbUrl')) {
+	    task genQueryDsl(type: org.cocktail.gradle.plugins.cocktailplugin.GenerateQueryDsl4Source, dependsOn: 'rmQ') {
+	        dbUrl = queryDSLDbUrl
+	        dbUserName = queryDSLDbUser
+	        dbPassword = queryDSLDbPassword
+	        jsonConfigurationFile = "${project.projectDir.absolutePath}/database.json"
+	        jsonCustomTypeMappingFile = "${project.projectDir.absolutePath}/typeMapping.json"
+	        targetPackage = "org.cocktail.gfc.${project.parent.name.replace('-', '.')}.querydsl4"
+	        targetSourceFolder = "${project.projectDir.absolutePath}/src/generated/java/"
+	        schemaToPackage = false
+	        generateQIds = false
+	    }
+	}
 }
 
 project(':app-spring') {
