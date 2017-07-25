@@ -137,15 +137,11 @@ project(':app-wo') {
 	
 	compileJava {
 	    generatedSourcesDestinationDir = '.apt_generated'
-		source = fileTree(dir: '..').matching { include '**/port/adapter/rest/*Resource.java' }
+		source += fileTree(dir: rootDir).matching { include '**/port/adapter/rest/*Resource.java' }
 	}
 	
 	dependencies {
 	    apt "cocktail.libs:generateur-controleur-wo-compile:0.1.0"
-	    compile "cocktail.libs:generateur-controleur-wo-runtime:0.1.0"
-	    compile "cocktail.fwk:FwkCktlRestServices:$fwkVersion"
-	    compile "com.oracle:ojdbc6:11.2.0.3"
-	    compile "org.reflections:reflections:0.9.9"
 	
 		compile( project( ':compta-budgetaire:api' ) )
 		compile( project( ':compta-budgetaire:implementation' ) )
@@ -155,6 +151,10 @@ project(':app-wo') {
 		compile( project( ':depense:implementation' ) )
 		
 	    compile('org.springframework.boot:spring-boot-starter-web')
+	    compile "cocktail.libs:generateur-controleur-wo-runtime:0.1.0"
+	    compile "cocktail.fwk:FwkCktlRestServices:$fwkVersion"
+	    compile "com.oracle:ojdbc6:11.2.0.3"
+	    compile "org.reflections:reflections:0.9.9"
 	}
 }
 
