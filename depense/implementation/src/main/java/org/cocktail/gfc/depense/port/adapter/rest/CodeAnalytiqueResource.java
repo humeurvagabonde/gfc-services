@@ -1,5 +1,10 @@
 package org.cocktail.gfc.depense.port.adapter.rest;
 
+import org.cocktail.gfc.depense.metier.modele.codeanalytique.CodeAnalytique;
+import org.cocktail.gfc.depense.metier.modele.codeanalytique.CodeAnalytiqueRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -7,9 +12,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
-import org.cocktail.gfc.depense.application.sf.ServiceFaitApplicationService;
-import org.cocktail.gfc.depense.metier.modele.sf.CodeAnalytique;
+import java.util.stream.StreamSupport;
 
 @Named
 @Singleton
@@ -17,13 +20,17 @@ import org.cocktail.gfc.depense.metier.modele.sf.CodeAnalytique;
 @Produces(MediaType.APPLICATION_JSON)
 public class CodeAnalytiqueResource {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CodeAnalytiqueResource.class);
+
     @Inject
-    private ServiceFaitApplicationService sfAppService;
-    
+    private CodeAnalytiqueRepository codeAnalytiqueRepository;
+
     @GET
-    @Path("/all")
+    @Path("/")
     public Iterable<CodeAnalytique> findAll() {
-        return sfAppService.findAll();
+        Iterable<CodeAnalytique> codes = codeAnalytiqueRepository.findAll();
+        StreamSupport.stream(codes.spliterator(), false)
+                .forEach(code -> LOGGER.info(code.getCode()));
+        return codes;
     }
-    
 }

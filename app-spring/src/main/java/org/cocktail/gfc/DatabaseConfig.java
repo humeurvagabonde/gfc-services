@@ -73,8 +73,8 @@ public class DatabaseConfig {
         
         return ds;
     }
-
-    // Transactions
+//
+//    // Transactions
 //    @Bean
 //    public PlatformTransactionManager txManager(DataSource dataSource) {
 //        return new DataSourceTransactionManager(dataSource);
