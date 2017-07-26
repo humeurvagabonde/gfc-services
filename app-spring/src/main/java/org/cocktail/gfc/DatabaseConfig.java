@@ -38,9 +38,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.support.nativejdbc.SimpleNativeJdbcExtractor;
-import org.springframework.transaction.PlatformTransactionManager;
 
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -77,10 +75,10 @@ public class DatabaseConfig {
     }
 
     // Transactions
-    @Bean
-    public PlatformTransactionManager txManager(DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
-    }
+//    @Bean
+//    public PlatformTransactionManager txManager(DataSource dataSource) {
+//        return new DataSourceTransactionManager(dataSource);
+//    }
 
     /**
      * Les PARAM_KEY_DEBUGSQL* servent au debug de plsql Voir <a href="https://wiki.asso-cocktail.fr/doku.php?id=production:cadre_de_developpement:standards_cocktail:debug_pl_sql">Wiki</a><br>

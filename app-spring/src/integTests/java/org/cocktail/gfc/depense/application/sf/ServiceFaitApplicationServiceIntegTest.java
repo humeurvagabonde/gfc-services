@@ -19,7 +19,7 @@ public class ServiceFaitApplicationServiceIntegTest {
     private ServiceFaitApplicationService sfAppService;
     
     @Test
-    public void test() {
+    public void testCreerSf() {
         sfAppService.creer(CreerSfCommand.builder()
                 .ejId(1L)
                 .exeOrdre(2017)
@@ -30,6 +30,11 @@ public class ServiceFaitApplicationServiceIntegTest {
                 .nomApplication("test")
                 .lignesSf("")
                 .build());
+    }
+    
+    @Test
+    public void testListerCodeAnalytique() {
+        sfAppService.findAll();
     }
 
 }
