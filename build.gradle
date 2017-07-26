@@ -11,6 +11,7 @@ buildscript {
     	springBootVersion = '1.5.4.RELEASE'
     	aptPluginVersion = '0.10'
     	shadowVersion = '2.0.1'
+		kotlinVersion = '1.1.3-2'
 	}
     repositories { 
     	mavenCentral()
@@ -22,6 +23,9 @@ buildscript {
     	classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
     	classpath "net.ltgt.gradle:gradle-apt-plugin:${aptPluginVersion}"
     	classpath "com.github.jengelman.gradle.plugins:shadow:${shadowVersion}"
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
+		classpath "org.jetbrains.kotlin:kotlin-noarg:${kotlinVersion}"
+		classpath "org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}"
 	}
 }
 
@@ -31,6 +35,9 @@ allprojects {
     apply plugin: 'eclipse'
     apply plugin: 'idea'
     apply plugin: 'net.ltgt.apt'
+	apply plugin: "kotlin"
+	apply plugin: 'kotlin-spring'
+	apply plugin: 'kotlin-jpa'
 
     repositories {
        mavenCentral()
@@ -48,9 +55,16 @@ allprojects {
     targetCompatibility = 1.8
 
     dependencies {
+		compile "org.jetbrains.kotlin:kotlin-stdlib-jre8"
+		compile "org.jetbrains.kotlin:kotlin-reflect"
+
     	compileOnly "org.immutables:value:2.5.5:annotations"
+
 		apt "org.immutables:value:2.5.5"
+
         testCompile 'junit:junit:4.12'
+		testCompile "org.jetbrains.kotlin:kotlin-test"
+		testCompile "org.jetbrains.kotlin:kotlin-test-junit"
     }
 }
 
@@ -125,8 +139,14 @@ project(':app-spring') {
 	apply plugin: 'com.github.johnrengelman.shadow'
 	
 	jar {
-	    baseName = 'gfc-services'
-	    version = '1.0.0'
+		baseName = 'gfc-services'
+		version = '1.0.0'
+	}
+
+	sourceSets {
+		integTests {
+			java
+		}
 	}
 	
 	// TODO : discuter de ces dependances
