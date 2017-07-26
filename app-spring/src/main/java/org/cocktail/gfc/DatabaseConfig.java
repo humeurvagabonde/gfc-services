@@ -75,12 +75,12 @@ public class DatabaseConfig {
         
         return ds;
     }
-
-    // Transactions
-    @Bean
-    public PlatformTransactionManager txManager(DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
-    }
+//
+//    // Transactions
+//    @Bean
+//    public PlatformTransactionManager txManager(DataSource dataSource) {
+//        return new DataSourceTransactionManager(dataSource);
+//    }
 
     /**
      * Les PARAM_KEY_DEBUGSQL* servent au debug de plsql Voir <a href="https://wiki.asso-cocktail.fr/doku.php?id=production:cadre_de_developpement:standards_cocktail:debug_pl_sql">Wiki</a><br>
