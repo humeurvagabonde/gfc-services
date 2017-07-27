@@ -1,17 +1,13 @@
 package org.cocktail.gfc.depense.application.sf;
 
-import java.util.stream.StreamSupport;
+import org.cocktail.gfc.depense.api.CreerSfCommand;
+import org.cocktail.gfc.depense.api.ServiceFaitService;
+import org.cocktail.gfc.depense.metier.modele.sf.ServiceFaitCycleVieService;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.transaction.Transactional;
-
-import org.cocktail.gfc.depense.api.CreerSfCommand;
-import org.cocktail.gfc.depense.api.ServiceFaitService;
-import org.cocktail.gfc.depense.metier.modele.sf.CodeAnalytique;
-import org.cocktail.gfc.depense.metier.modele.sf.CodeAnalytiqueRepository;
-import org.cocktail.gfc.depense.metier.modele.sf.ServiceFaitCycleVieService;
 
 @Named
 @Singleton
@@ -60,16 +56,5 @@ public class ServiceFaitApplicationService implements ServiceFaitService {
     public void annulerCertification(Long idDepSf, Long persIdModification) {
         // TODO Auto-generated method stub
         
-    }
-    
-    // TESTS JPA //
-    @Inject
-    private CodeAnalytiqueRepository codeAnalytiqueRepository;
-    
-    public Iterable<CodeAnalytique> findAll() {
-        StreamSupport
-            .stream(codeAnalytiqueRepository.findAll().spliterator(), false)
-            .forEach(System.out::println);
-        return codeAnalytiqueRepository.findAll();
     }
 }
