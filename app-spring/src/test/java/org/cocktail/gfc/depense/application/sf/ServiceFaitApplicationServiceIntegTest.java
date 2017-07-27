@@ -19,22 +19,7 @@ public class ServiceFaitApplicationServiceIntegTest {
     private ServiceFaitApplicationService sfAppService;
     
     @Test
-    public void testCreerSf() {
-        sfAppService.creer(CreerSfCommand.builder()
-                .ejId(1L)
-                .exeOrdre(2017)
-                .reference("reference")
-                .commentaire("commantaire")
-                .dateSf("2017-04-27 14:12:22")
-                .persId(4L)
-                .nomApplication("test")
-                .lignesSf("")
-                .build());
+    public void test() {
+        sfAppService.creer(new CreerSfCommand(1L, 2017, "reference", "commentaire", "2017-04-27 14:12:22", 4L, "test", ""));
     }
-    
-    @Test
-    public void testListerCodeAnalytique() {
-        sfAppService.findAll();
-    }
-
 }

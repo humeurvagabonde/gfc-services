@@ -141,17 +141,6 @@ project(':app-spring') {
 		version = '1.0.0'
 	}
 
-	sourceSets {
-		integration {
-			java
-		}
-    }
-
-    configurations {
-        integrationCompile.extendsFrom testCompile
-        integrationRuntime.extendsFrom testRuntime
-    }
-
 	// TODO : discuter de ces dependances
 	dependencies {
 		compile( project( ':compta-budgetaire:api' ) )
