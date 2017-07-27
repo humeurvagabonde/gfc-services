@@ -5,7 +5,7 @@ interface ServiceFaitCommand {
 
 data class CreerSfCommand(
       val ejId: Long,
-      val exeOrdre: Integer,
+      val exeOrdre: Int,
       val reference: String,
       val commentaire: String,
       val dateSf: String,
@@ -15,7 +15,7 @@ data class CreerSfCommand(
 ): ServiceFaitCommand
 
 data class MajSfCommand(
-        val exeOrdre: Integer,
+        val exeOrdre: Int,
         val reference: String,
         val commentaire: String,
         val dateSf: String,
