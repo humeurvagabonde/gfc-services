@@ -26,6 +26,7 @@ buildscript {
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
 		classpath "org.jetbrains.kotlin:kotlin-noarg:${kotlinVersion}"
 		classpath "org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}"
+		classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.4.17"
 	}
 }
 
@@ -81,9 +82,12 @@ configure(subprojects.findAll { it.name.contains('api') }) {
 
 configure(subprojects.findAll { it.name.contains('implementation') }) {
 
-    apply plugin: "io.spring.dependency-management"
+	apply plugin: 'org.springframework.boot'
 
-    ext { springBootVersion = '1.5.4.RELEASE' }
+	bootRepackage  {
+		enabled = false
+		classifier = 'exec'
+	}
 
     dependencies {
     	compile "org.jetbrains.kotlin:kotlin-stdlib-jre8"
@@ -96,10 +100,6 @@ configure(subprojects.findAll { it.name.contains('implementation') }) {
         compile 'com.querydsl:querydsl-sql:4.1.3'
 		compile 'org.mapstruct:mapstruct-jdk8:1.2.0.CR1'
 	    apt 'org.mapstruct:mapstruct-processor:1.2.0.CR1'
-    }
-
-    dependencyManagement {
-        imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
     }
 }
 
@@ -140,10 +140,15 @@ project(':app-spring') {
 	//apply plugin: 'application'
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'com.github.johnrengelman.shadow'
-	
+	apply plugin: "com.gorylenko.gradle-git-properties"
+
 	jar {
 		baseName = 'gfc-services'
 		version = '1.0.0'
+	}
+
+	bootRepackage  {
+		mainClass = 'org.cocktail.gfc.GfcServicesApplication'
 	}
 
 	// TODO : discuter de ces dependances

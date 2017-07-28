@@ -7,6 +7,7 @@ import feign.jaxrs.JAXRSContract;
 import org.cocktail.gfc.depense.api.CodeAnalytiqueRepresentation;
 import org.cocktail.gfc.depense.api.ServiceDescriptor;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.stream.StreamSupport;
 public class CodeAnalytiqueResourceTest {
 
     @Test
+    @Ignore
     public void findAll() throws Exception {
         ServiceDescriptor.CodeAnalytiqueDescriptor desc =
             Feign.builder()
