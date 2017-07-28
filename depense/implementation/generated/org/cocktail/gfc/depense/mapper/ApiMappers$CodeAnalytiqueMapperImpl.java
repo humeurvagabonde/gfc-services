@@ -12,7 +12,7 @@ import org.cocktail.gfc.depense.metier.modele.codeanalytique.CodeAnalytique;
 
     value = "org.mapstruct.ap.MappingProcessor",
 
-    date = "2017-07-28T19:01:40+0200",
+    date = "2017-07-28T19:43:06+0200",
 
     comments = "version: 1.2.0.CR1, compiler: javac, environment: Java 1.8.0_131 (Oracle Corporation)"
 
