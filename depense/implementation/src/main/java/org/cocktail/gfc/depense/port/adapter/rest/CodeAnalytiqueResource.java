@@ -15,6 +15,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.Iterator;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -31,9 +33,9 @@ public class CodeAnalytiqueResource implements ServiceDescriptor.CodeAnalytiqueD
 
     @GET
     @Path("/")
-    public Iterable<CodeAnalytiqueRepresentation> findAll() {
+    public List<CodeAnalytiqueRepresentation> findAll() {
         Iterable<CodeAnalytique> codes = codeAnalytiqueRepository.findAll();
-        Iterable<CodeAnalytiqueRepresentation> codesRepr =
+        List<CodeAnalytiqueRepresentation> codesRepr =
                 StreamSupport.stream(codes.spliterator(), false)
                 .peek(code -> LOGGER.info(code.getCode()))
                 .map(ApiMappers.CodeAnalytiqueMapper.INSTANCE::codeToCodeRepresentation)

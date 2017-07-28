@@ -13,4 +13,5 @@ public interface ApiMappers {
 
         CodeAnalytiqueRepresentation codeToCodeRepresentation(CodeAnalytique code);
     }
+
 }
