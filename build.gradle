@@ -70,6 +70,7 @@ allprojects {
 configure(subprojects.findAll { it.name.contains('api') }) {
 
 	dependencies {
+		compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
 		compileOnly project(':common:common-configuration-internal')
 	}
 }
