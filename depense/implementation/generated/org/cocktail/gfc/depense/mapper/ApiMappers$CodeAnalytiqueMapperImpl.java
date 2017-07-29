@@ -12,7 +12,7 @@ import org.cocktail.gfc.depense.metier.modele.codeanalytique.CodeAnalytique;
 
     value = "org.mapstruct.ap.MappingProcessor",
 
-    date = "2017-07-28T21:20:20+0200",
+    date = "2017-07-29T16:20:10+0200",
 
     comments = "version: 1.2.0.CR1, compiler: javac, environment: Java 1.8.0_131 (Oracle Corporation)"
 
@@ -22,7 +22,7 @@ public class ApiMappers$CodeAnalytiqueMapperImpl implements CodeAnalytiqueMapper
 
     @Override
 
-    public CodeAnalytiqueRepresentation codeToCodeRepresentation(CodeAnalytique code) {
+    public CodeAnalytiqueRepresentation toApi(CodeAnalytique code) {
 
         if ( code == null ) {
 

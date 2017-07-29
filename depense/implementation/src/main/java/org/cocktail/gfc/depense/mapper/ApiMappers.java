@@ -11,7 +11,7 @@ public interface ApiMappers {
     interface CodeAnalytiqueMapper {
         CodeAnalytiqueMapper INSTANCE = Mappers.getMapper(CodeAnalytiqueMapper.class);
 
-        CodeAnalytiqueRepresentation codeToCodeRepresentation(CodeAnalytique code);
+        CodeAnalytiqueRepresentation toApi(CodeAnalytique code);
     }
 
 }

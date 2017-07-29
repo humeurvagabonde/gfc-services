@@ -27,10 +27,26 @@ public class CodeAnalytiqueResourceTest {
                 .logLevel(Logger.Level.FULL)
                 .target(ServiceDescriptor.CodeAnalytiqueDescriptor.class, "http://localhost:9000/api/v1/gfc/codes-analytique");
 
-        Iterable<CodeAnalytiqueRepresentation> repr = desc.findAll();
+        Iterable<CodeAnalytiqueRepresentation> repr = desc.find(null, null);
 
         List<CodeAnalytiqueRepresentation> reprList = StreamSupport.stream(repr.spliterator(), false).collect(Collectors.toList());
         Assert.assertEquals(38, reprList.size());
     }
 
+    @Test
+    @Ignore
+    public void findByCode() throws Exception {
+        ServiceDescriptor.CodeAnalytiqueDescriptor desc =
+                Feign.builder()
+                        .contract(new JAXRSContract())
+                        .decoder(new GsonDecoder())
+                        .logger(new feign.slf4j.Slf4jLogger())
+                        .logLevel(Logger.Level.FULL)
+                        .target(ServiceDescriptor.CodeAnalytiqueDescriptor.class, "http://localhost:9000/api/v1/gfc/codes-analytique");
+
+        Iterable<CodeAnalytiqueRepresentation> repr = desc.find("CA12", null);
+
+        List<CodeAnalytiqueRepresentation> reprList = StreamSupport.stream(repr.spliterator(), false).collect(Collectors.toList());
+        Assert.assertEquals(38, reprList.size());
+    }
 }
