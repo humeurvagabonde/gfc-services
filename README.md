@@ -60,6 +60,7 @@ Le projet s'appuie sur :
     - via kotlin pour la branche kotlin. Kotlin fonctionne aussi pour JPA.
 - utilisation de mapstruct pour transférer une entité JPA vers une représentation API (package mappers de :depense:implementation)
 - la config de la datasource a été remaniée pour surcharger la conf springboot afin d'intégrer les mdps cryptés (non testé)
+- utilisation de Kotlin-JPA-Spec pour generer des specs Spring data quisont ensuite transformer en Criteria JPA
 - la tâche de génération des queryDsl est en place pour les sous-projets search seulement
 - un test Rest où une ressource de 'compta-generale' consomme un service de 'compta-budgetaire' et lève un évenement affiché dans la console d'erreur : [Ressource test](http://localhost:9000/api/v1/gfc/compta-generale/hello)
 - accès a spring actuator.
@@ -77,7 +78,9 @@ Pour la branche Kotlin :
 - utiliser intellij idea
 - installer le plugin eclipse-kotlin depuis le marketplace
 
-Je n'ai utilisé que la feature "data class" pour le moment.
+On utilise les features de Kotlin suivantes :
+- les data class
+- la librairie jpa-spec
 
 Pour idea, il faut aussi configurer APT.
 
