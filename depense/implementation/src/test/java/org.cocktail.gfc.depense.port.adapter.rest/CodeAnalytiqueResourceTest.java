@@ -44,9 +44,10 @@ public class CodeAnalytiqueResourceTest {
                         .logLevel(Logger.Level.FULL)
                         .target(ServiceDescriptor.CodeAnalytiqueDescriptor.class, "http://localhost:9000/api/v1/gfc/codes-analytique");
 
-        Iterable<CodeAnalytiqueRepresentation> repr = desc.find("CA12", null);
+        Iterable<CodeAnalytiqueRepresentation> repr = desc.find("AA01", null);
 
         List<CodeAnalytiqueRepresentation> reprList = StreamSupport.stream(repr.spliterator(), false).collect(Collectors.toList());
-        Assert.assertEquals(38, reprList.size());
+        Assert.assertEquals(1, reprList.size());
+        Assert.assertEquals("code fils", reprList.get(0).getLibelle());
     }
 }
