@@ -9,6 +9,8 @@ import org.cocktail.gfc.depense.metier.modele.codeanalytique.CodeAnalytiqueQuery
 import org.cocktail.gfc.depense.metier.modele.codeanalytique.CodeAnalytiqueRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specifications;
 
 import javax.inject.Inject;
@@ -33,9 +35,11 @@ public class CodeAnalytiqueResource implements ServiceDescriptor.CodeAnalytiqueD
     @Inject
     private CodeAnalytiqueRepository codeAnalytiqueRepository;
 
+    @Override
     public List<CodeAnalytiqueRepresentation> find(String code, String libelle) {
         CodeAnalytiqueQuery codesQuery = new CodeAnalytiqueQuery(code, libelle);
         Specifications<CodeAnalytique> codesSpecs = CodeAnalytiqueQueryKt.toSpecification(codesQuery);
+        //Pageable pageRequest = new PageRequest(0, 10);
         Iterable<CodeAnalytique> codes = codeAnalytiqueRepository.findAll(codesSpecs);
         List<CodeAnalytiqueRepresentation> codesRepr =
                 StreamSupport.stream(codes.spliterator(), false)
@@ -46,5 +50,10 @@ public class CodeAnalytiqueResource implements ServiceDescriptor.CodeAnalytiqueD
         return codesRepr;
     }
 
-
+    @Override
+    public CodeAnalytiqueRepresentation getCodeAnalytique(String code) {
+        CodeAnalytique codeAnalytique =
+                codeAnalytiqueRepository.findOne(CodeAnalytiqueQueryKt.toSpecification(new CodeAnalytiqueQuery(code, null)));
+        return ApiMappers.CodeAnalytiqueMapper.INSTANCE.toApi(codeAnalytique);
+    }
 }

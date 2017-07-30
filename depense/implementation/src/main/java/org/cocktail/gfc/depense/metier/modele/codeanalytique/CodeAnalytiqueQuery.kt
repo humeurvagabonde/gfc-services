@@ -24,6 +24,7 @@ fun hasLibelle(libelle: String?): Specifications<CodeAnalytique>? = libelle?.let
  * A single CodeAnalytiqueQuery is equivalent to an AND of all supplied criteria.
  * Note: any criteria that is null will be ignored (not included in the query).
  */
+// NOTE FLA: sortir cette fonction dans l'adapter persistence
 fun CodeAnalytiqueQuery.toSpecification(): Specifications<CodeAnalytique> = and(
     hasCode(code),
     hasLibelle(libelle)

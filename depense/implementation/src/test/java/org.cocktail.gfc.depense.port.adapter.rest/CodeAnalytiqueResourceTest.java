@@ -42,12 +42,28 @@ public class CodeAnalytiqueResourceTest {
                         .decoder(new GsonDecoder())
                         .logger(new feign.slf4j.Slf4jLogger())
                         .logLevel(Logger.Level.FULL)
-                        .target(ServiceDescriptor.CodeAnalytiqueDescriptor.class, "http://localhost:9000/api/v1/gfc/codes-analytique");
+                        .target(ServiceDescriptor.CodeAnalytiqueDescriptor.class, "http://localhost:9000/api/v1/gfc/");
 
         Iterable<CodeAnalytiqueRepresentation> repr = desc.find("AA01", null);
 
         List<CodeAnalytiqueRepresentation> reprList = StreamSupport.stream(repr.spliterator(), false).collect(Collectors.toList());
         Assert.assertEquals(1, reprList.size());
         Assert.assertEquals("code fils", reprList.get(0).getLibelle());
+    }
+
+    @Test
+    public void getCodeAnalytique() throws Exception {
+        ServiceDescriptor.CodeAnalytiqueDescriptor desc =
+                Feign.builder()
+                        //.contract(new JAXRSContract())
+                        .decoder(new GsonDecoder())
+                        .logger(new feign.slf4j.Slf4jLogger())
+                        .logLevel(Logger.Level.FULL)
+                        .target(ServiceDescriptor.CodeAnalytiqueDescriptor.class, "http://localhost:9000/");
+
+        CodeAnalytiqueRepresentation repr = desc.getCodeAnalytique("AA01");
+
+        Assert.assertEquals("AA01", repr.getCode());
+        Assert.assertEquals("code fils", repr.getLibelle());
     }
 }
