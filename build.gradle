@@ -47,6 +47,11 @@ allprojects {
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
+	compileJava {
+		//enable incremental compilation
+		options.incremental = true
+	}
+
     dependencies {
     	compile "org.immutables:value:2.5.5:annotations"
 		apt "org.immutables:value:2.5.5"
