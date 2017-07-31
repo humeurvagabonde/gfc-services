@@ -1,26 +1,27 @@
 # gfc-services
 
-### Multiprojet
+## Installation
 
-Le projet est un multi-projet composé de :
-- *app-spring* : permet de booter le point d'entrée des services. Charge automatiquement tous les controllers Rest, Beans.
-- *app-wo* : application au format WO
-- *compta-budgetaire* : domaine comptabilite budgetaire
-- *compta-generale* : domaine comptabilite budgetaire
-- *depense* : domaine de la dépense
-- *depense-search* : sous-domaine des recherches de la chaine de la depense
-- *common* : classes communes (configuration, ...)
+```shell
+$ git clone git@forge.intra-cocktail.org:gfc/generateur-controleurs-wo.git
+$ cd generateur-controleurs-wo/generateur-controleur-wo-compile
+$ ../gradlew install
+$ cd ../generateur-controleur-wo-runtime/
+$ ../gradlew install
+```
 
-On peut afficher la structure du multiprojet avec la commande 'gradle -q projects'
+```shell
+$ git clone git@forge.intra-cocktail.org:francois.lagoueyte/gfc-services.git
+$ ../gradlew install
+```
 
-### Conventions
+### IDE
 
-Plusieurs conventions existent :
-- module-api : les interfaces de services
-- module-implementation : les adapters (JAX-RS, JPA) + les modeles métiers (applicationService, entites
-- module-search : modules optimisés pour les recherches (QueryDsl)
+#### eclipse
 
-### Execution
+#### idea
+
+## Lancer l'application
 
 Pour lancer l'application, il faut
 - se mettre dans le répertoire application et
@@ -34,6 +35,91 @@ Pour construire un Jar contenant toutes les classes / dépendances :
 - se placer dans le répertoire application
 - lancer `../gradlew shadowJar`
 
+## Multiprojet
+
+Le projet est un multi-projet gradle 4.0.2 composé de :
+- *app-spring* : permet de booter le point d'entrée des services. Charge automatiquement tous les controllers Rest, Beans.
+- *app-wo* : application au format WO
+- *compta-budgetaire* : domaine comptabilite budgetaire
+- *compta-generale* : domaine comptabilite budgetaire
+- *depense* : domaine de la dépense
+- *depense-search* : sous-domaine des recherches de la chaine de la depense
+- *common* : classes communes (configuration, ...)
+
+On peut afficher la structure du multiprojet avec la commande `./gradlew -q projects`
+
+__Notes__ :
+- on utilise toujours le wrapper gradle fourni
+
+## Objectifs
+
+### Explication des choix
+
+- :question: __décomposer le périmètre fonctionel en `bounded context`__
+- :exclamation: chaque bounded context est représenté par un module / répertoire (compta-budgetaire, depense, ...)
+- :question: __exposer des API pour nos servcies métiers (encapsulation)__
+- :exclamation: chaque module fonctionel est redecoupé en deux : API et IMPLEMENTATION.
+  - l'API expose les services consommables par un autre module java
+  - on utilise le plugin gradle java-library (à la place de java) pour définir des dépendances API et IMPLEMENTATION entre modules.
+  - un module implementation ne peut pas avoir une dépendance vers un autre module implementation.
+  - un module implementation consomme des modules API 
+  - sous eclipse, les noms de projets sont correctement gérés par défaut (un suffix -api ou -implementation)
+- :question: __utiliser des `domain events` pour déclencher des actions entre contextes métiers__
+- :exclamation: utilisation des events Spring qui sont transactionnels
+- :question: __implémenter une architecture hexagonale__
+- :exclamation: dans implémentation on a 
+   - un package application qui définit les services applicatifs.
+   - un package metier.modele qui contient toutc e qui constitue le métier sans référence aux couches techniques (persistence, rest, ...)
+   - un package port.adapter.<type> qui contient la couche technique : framework, librairie persistence, rest, services externes 
+- :question: __utiliser des structures immutables__
+- :exclamation: certains objets : commands et representations sont des structures immutables
+   - pour la branche master : on utilise la bibliothèque immutables.github.io,
+   - pour la branche kotlin : les data class 
+- :question: __faciliter le mapping entre les entités et leur representation__
+- :exclamation: utilisation de la librairie mapstruct pour transférer une entité JPA vers une représentation API
+- :question: __pouvoir générer un client http facilement (plus facilement que nos clients jersey actuels)__
+- :exclamation: définition d'une interface ServiceDescriptor qui contient une API dédié au transport hors Java (Rest par exemple)
+  - on définit les routes Rest via les annotations Jax-rs qui seront héritées par l'implémentation (chapitre 3.6 de la spec))
+  - on ajoute les annotations Feign (RequestLine)
+  - une appli tierce peut construire un client Feign
+  
+__Notes__ :
+- Lombok n'a pas été utilisé. Bien que pratique, et facile à mettre en place je n'apprécie pas la librairie
+- immutables est plus délicat, parfois capricieux. Plus ciblé dans son fonctionnement. J'apprécie cependant l'utilisation de APT qui permet de visualiser le code généré.
+
+### Implémentation des choix
+
+- __consommation api par un module java__
+   - :compta-generale:implementation : HelloComptableEtBudgetaireServiceImpl accède à HelloBudgetaireService
+- __domain events__ : 
+   - :compta-generale:implementation : HelloComptableEtBudgetaireServiceImpl publie un événement HelloComptaGeneraleSentEvent
+   - :app-spring : EventLogger loggue l'événement HelloComptaGeneraleSentEvent
+   - [Ressource test](http://localhost:9000/api/v1/gfc/compta-generale/hello)
+- __objet immutables__
+   - {branche master} :depense:api : ServiceFaitCommand contient les commandes exposées 
+   - {branche kotlin} :depense:api : ServiceFaitCommand contient les commandes exposées
+- __mappings__
+   - :depense:implementation : ApiMappers contient les interfaces de mapping. L'utilisation a lieu dans CodeAnalytiqueResource. 
+- __feign : client http__
+   - :depense:implementation : CodeAnalytiqueResourceTest
+
+### Conventions
+
+Plusieurs conventions existent :
+- module-api : les interfaces de services
+- module-implementation : les adapters (JAX-RS, JPA) + les modeles métiers + la couche services applicatifs
+- module-search : modules optimisés pour les recherches (QueryDsl)
+
+## Divers
+
+- la config de la datasource a été remaniée pour surcharger la conf springboot afin d'intégrer les mdps cryptés (non testé)
+- utilisation de Kotlin-JPA-Spec pour generer des specs Spring data quisont ensuite transformer en Criteria JPA
+- la tâche de génération des queryDsl est en place pour les sous-projets search seulement
+- accès a spring actuator.
+    - [Ressource Health](http://localhost:9001/health) : état de l'appli
+    - [Ressource Info](http://localhost:9001/info) : infos git
+- le starter Spring donne accès a sl4f et logback par défaut. Conf logback-spring.xml disponible dans app-spring.
+
 ### Plugins gradle
 
 - springBoot : acces aux starters + autoconfiguration + packaging
@@ -43,34 +129,6 @@ Le jar spring boot, par défaut, ne peut pas être utilisé en tant que dépenda
 
 Le jar shadow permet cela mais en contrepartie incorpore par défaut toutes les classes de toutes les dépendances (JPA, Spring, ...).
 Il y a un risque de conflits de version.
-
-## Détails du Réalisé
-
-Le projet s'appuie sur :
-
-- gradle 4.0.1 exposé via le wrapper (gradlew)
-- un multiprojet gradle 
-- une séparation api / implementation au niveau organisation et en utilisant le plugin java-library
-    - qui génére des noms de projet IDE corrects
-- une interface Descriptor dans l'API
-    - qui définit les routes REST via les annotations JAX-RS qui seront héritées par l'implémentation (chapitre 3.6 de la spec))
-    - qui est utilisé pour générer un client http avec Feign (exemple dans :depense:implementation - test)
-- Mise en place de structure immutable pour les commands (ex dans :depense:api et : implementation)
-    - via immutables pour la branche master. Limitation de immutable pour les entites JPA
-    - via kotlin pour la branche kotlin. Kotlin fonctionne aussi pour JPA.
-- utilisation de mapstruct pour transférer une entité JPA vers une représentation API (package mappers de :depense:implementation)
-- la config de la datasource a été remaniée pour surcharger la conf springboot afin d'intégrer les mdps cryptés (non testé)
-- utilisation de Kotlin-JPA-Spec pour generer des specs Spring data quisont ensuite transformer en Criteria JPA
-- la tâche de génération des queryDsl est en place pour les sous-projets search seulement
-- un test Rest où une ressource de 'compta-generale' consomme un service de 'compta-budgetaire' et lève un évenement affiché dans la console d'erreur : [Ressource test](http://localhost:9000/api/v1/gfc/compta-generale/hello)
-- accès a spring actuator.
-    - [Ressource Health](http://localhost:9001/health) : état de l'appli
-    - [Ressource Info](http://localhost:9001/info) : infos git
-- le starter Spring donne accès a sl4f et logback par défaut. Conf logback-spring.xml disponible dans app-spring.
-
-__Notes__ :
-- Lombok n'a pas été utilisé. Bien que pratique, et facile à mettre en place je n'apprécie pas la librairie
-- immutables est plus délicat, parfois capricieux. Plus ciblé dans son fonctionnement. J'apprécie cependant l'utilisation de APT qui permet de visualiser le code généré.
 
 ### Kotlin 
 
@@ -91,7 +149,6 @@ Le build.gradle principal définit uniquement les infos pour allprojects et subp
 Pour démarrer j'ai trouvé cela moins clair car cela mélange la définition globale du multiprojet et la définition de l'application principale.
 
 ## Reste à faire / étudier
-
 
 - [ ] tester un projet implementation dédiée pour les adapters
 - [ ] dans implementation, définir les mappers avec mapstruct. Dep gradle deja en place.
@@ -116,6 +173,7 @@ Pour démarrer j'ai trouvé cela moins clair car cela mélange la définition gl
 
 ## A discuter
 
+- quel module est propriétaire des evenements
 - fusionner application dans gfc-services
 - l'utilisation de java-library
 - separer dans un jar la partie port.adapter
