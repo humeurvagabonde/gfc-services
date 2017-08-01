@@ -21,11 +21,9 @@ $ ../gradlew install
 
 ```
 importer le projet avec buildship en conservant les options par défaut
-$ ./gradlew eclipseJdtApt
-$ ./gradlew eclipseFactorypath
-$ ./gradlew eclipseJdt
--- redemarrer le workspace
-clean workspace
+$ ./gradlew eclipseJdtApt eclipseFactorypath eclipseJdt
+rafraichir le projet gradle sous Eclipse (click droit (refresh gradle project')
+clean workspace (si le refresh ne l'a pas automatiquement réalisé)
 dans les filtres projet, ne pas cacher les .*resources ce qui permet de voir le répertoire .apt_generated et le répertoire build où sont présents les fichiers classes Java genérés
 ```
 
