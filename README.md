@@ -29,6 +29,19 @@ dans les filtres projet, ne pas cacher les .*resources ce qui permet de voir le 
 
 #### idea
 
+``` 
+$ ./gradlew idea 
+Ouvrir (et non importer le projet dans Intellij IDEA 
+Aller dans File > Settings > Build, Execution, Deployment > Gradle > Runner puis cocher Delegate IDE build/run actions to gradle 
+Aller dans File > Settings > Build, Execution, Deployment > Compiler > Annotations Processors : 
+  - cocher Enable annotation processing 
+  - choisir Obtain processors from project classpath 
+  - choisir module content root 
+  - Production sources directory : build/generated/source/apt/main 
+  - Test sources directory : build/generated/source/apt/test   
+Lancer Build > Rebuild project si besoin  
+``` 
+
 ## Lancer l'application
 
 Pour lancer l'application, il faut
