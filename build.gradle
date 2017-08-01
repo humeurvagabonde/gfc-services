@@ -185,13 +185,12 @@ project(':app-wo') {
     apply plugin: 'maven'
 	apply plugin: 'cocktail'
 	apply from: "$serviceBuildUrl/cocktail.gradle?private_token=${gitlabToken}"
+    apply from: "$serviceBuildUrl/cocktail-java8.gradle?private_token=${gitlabToken}"
 	apply from: "$serviceBuildUrl/cocktail-application.main.gradle?private_token=${gitlabToken}"
 	apply from: "$serviceBuildUrl/libraries.gradle?private_token=${gitlabToken}"
 	apply from: "$serviceBuildUrl/libraries-wo-543.gradle?private_token=${gitlabToken}"
 	apply from: "$serviceBuildUrl/libraries-wonder-550.gradle?private_token=${gitlabToken}"
 
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
 
     sourceSets {
 	    main {
@@ -207,12 +206,12 @@ project(':app-wo') {
 	dependencies {
 	    apt "cocktail.libs:generateur-controleur-wo-compile:0.1.0"
 	
-		compile( project( ':compta-budgetaire:api' ) )
-		compile( project( ':compta-budgetaire:implementation' ) )
-		compile( project( ':compta-generale:api' ) )
-		compile( project( ':compta-generale:implementation' ) )
-		compile( project( ':depense:api' ) )
-		compile( project( ':depense:implementation' ) )
+		api( project( ':compta-budgetaire:api' ) )
+		implementation( project( ':compta-budgetaire:implementation' ) )
+        api( project( ':compta-generale:api' ) )
+        implementation( project( ':compta-generale:implementation' ) )
+        api( project( ':depense:api' ) )
+        implementation( project( ':depense:implementation' ) )
 		
 	    compile('org.springframework.boot:spring-boot-starter-web')
 	    compile "cocktail.libs:generateur-controleur-wo-runtime:0.1.0"
