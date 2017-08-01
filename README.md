@@ -19,6 +19,16 @@ $ ../gradlew install
 
 #### eclipse
 
+```
+importer le projet avec buildship en conservant les options par défaut
+$ ./gradlew eclipseJdtApt
+$ ./gradlew eclipseFactorypath
+$ ./gradlew eclipseJdt
+-- redemarrer le workspace
+clean workspace
+dans les filtres projet, ne pas cacher les .*resources ce qui permet de voir le répertoire .apt_generated et le répertoire build où sont présents les fichiers classes Java genérés
+```
+
 #### idea
 
 ## Lancer l'application
@@ -180,3 +190,4 @@ Pour démarrer j'ai trouvé cela moins clair car cela mélange la définition gl
 - le temps investi à essayer d'avoir une application ainsi qu'une librairie utilisable en dépendance (plugin, pb de librairies repackagées)
     + investir du temps à intégrer plusieurs applis (camel, reflexions métier pour ne pas avoir de tx)
     + mettre tout le pgi dans le meme repo excepte les IHM
+
