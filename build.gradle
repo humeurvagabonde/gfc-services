@@ -30,6 +30,8 @@ buildscript {
 	}
 }
 
+ext.generateJarFwks = false
+
 allprojects {
 
     apply plugin: 'java-library'
