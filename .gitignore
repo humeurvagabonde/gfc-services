@@ -58,3 +58,4 @@ mem*.db
 README.html
 /.apt_generated/
 .factorypath
+**/velocity.log
