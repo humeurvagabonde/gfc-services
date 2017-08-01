@@ -25,6 +25,8 @@ buildscript {
 	}
 }
 
+ext.generateJarFwks = false
+
 allprojects {
 
     apply plugin: 'java-library'
@@ -73,10 +75,6 @@ configure(subprojects.findAll { it.name.contains('api') }) {
 
 configure(subprojects.findAll { it.name.contains('implementation') }) {
 
-    apply plugin: "io.spring.dependency-management"
-
-    ext { springBootVersion = '1.5.4.RELEASE' }
-
     dependencies {
         compile 'org.springframework.boot:spring-boot-starter'
         compile 'org.springframework.boot:spring-boot-starter-web'
@@ -88,10 +86,7 @@ configure(subprojects.findAll { it.name.contains('implementation') }) {
 		compile 'org.mapstruct:mapstruct-jdk8:1.2.0.CR1'
 	    apt 'org.mapstruct:mapstruct-processor:1.2.0.CR1'
     }
-
-    dependencyManagement {
-        imports { mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}") }
-    }
+    
 }
 
 configure(subprojects.findAll { it.path.contains('search') }) {
