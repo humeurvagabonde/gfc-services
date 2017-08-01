@@ -75,6 +75,8 @@ configure(subprojects.findAll { it.name.contains('api') }) {
 
 configure(subprojects.findAll { it.name.contains('implementation') }) {
 
+    apply plugin: 'org.springframework.boot'
+
     dependencies {
         compile 'org.springframework.boot:spring-boot-starter'
         compile 'org.springframework.boot:spring-boot-starter-web'
@@ -165,7 +167,10 @@ project(':app-wo') {
 	apply from: "$serviceBuildUrl/libraries.gradle?private_token=${gitlabToken}"
 	apply from: "$serviceBuildUrl/libraries-wo-543.gradle?private_token=${gitlabToken}"
 	apply from: "$serviceBuildUrl/libraries-wonder-550.gradle?private_token=${gitlabToken}"
-    
+
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+
 	sourceSets {
 	    main {
 	        java { srcDir 'Sources' }
@@ -174,7 +179,6 @@ project(':app-wo') {
 	}
 	
 	compileJava {
-	    generatedSourcesDestinationDir = '.apt_generated'
 		source += fileTree(dir: rootDir).matching { include '**/port/adapter/rest/*Resource.java' }
 	}
 	
