@@ -52,6 +52,7 @@ public class CodeAnalytiqueResourceTest {
     }
 
     @Test
+    @Ignore
     public void getCodeAnalytique() throws Exception {
         ServiceDescriptor.CodeAnalytiqueDescriptor desc =
                 Feign.builder()

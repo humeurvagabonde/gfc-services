@@ -185,12 +185,11 @@ project(':app-wo') {
     apply plugin: 'maven'
 	apply plugin: 'cocktail'
 	apply from: "$serviceBuildUrl/cocktail.gradle?private_token=${gitlabToken}"
-    apply from: "$serviceBuildUrl/cocktail-java8.gradle?private_token=${gitlabToken}"
 	apply from: "$serviceBuildUrl/cocktail-application.main.gradle?private_token=${gitlabToken}"
 	apply from: "$serviceBuildUrl/libraries.gradle?private_token=${gitlabToken}"
 	apply from: "$serviceBuildUrl/libraries-wo-543.gradle?private_token=${gitlabToken}"
 	apply from: "$serviceBuildUrl/libraries-wonder-550.gradle?private_token=${gitlabToken}"
-
+    apply from: "$serviceBuildUrl/cocktail-java8.gradle?private_token=${gitlabToken}"
 
     sourceSets {
 	    main {
