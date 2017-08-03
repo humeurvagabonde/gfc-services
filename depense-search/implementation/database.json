@@ -2,8 +2,8 @@
   "users": [
     {
       "name": "GFC",
-      "all": true,
-      "tables": [],
+      "all": false,
+      "tables": ["DEP_EJ", "ADM_EB"],
       "views": []
     }
   ],

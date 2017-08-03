@@ -1,13 +1,13 @@
 package org.cocktail.gfc.depense.application.sf;
 
+import org.cocktail.gfc.depense.api.CreerSfCommand;
+import org.cocktail.gfc.depense.api.ServiceFaitService;
+import org.cocktail.gfc.depense.metier.modele.sf.ServiceFaitCycleVieService;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.transaction.Transactional;
-
-import org.cocktail.gfc.depense.api.CreerSfCommand;
-import org.cocktail.gfc.depense.api.ServiceFaitService;
-import org.cocktail.gfc.depense.metier.modele.sf.ServiceFaitCycleVieService;
 
 @Named
 @Singleton
@@ -31,7 +31,7 @@ public class ServiceFaitApplicationService implements ServiceFaitService {
     @Override
     public void supprimer(Long idDepSf) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override

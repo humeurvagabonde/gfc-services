@@ -1,15 +1,15 @@
 package org.cocktail.gfc.comptabilite.generale.application.hello;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
-
 import org.cocktail.gfc.comptabilite.budgetaire.api.HelloBudgetaireService;
 import org.cocktail.gfc.comptabilite.generale.api.HelloComptaGeneraleSentEvent;
 import org.cocktail.gfc.comptabilite.generale.api.HelloComptableEtBudgetaireService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
 
 @Named
 @Singleton
