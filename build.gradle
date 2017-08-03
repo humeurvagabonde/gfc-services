@@ -41,9 +41,7 @@ allprojects {
     apply plugin: 'eclipse'
     apply plugin: 'idea'
     apply plugin: 'net.ltgt.apt'
-	apply plugin: "kotlin"
-	apply plugin: 'kotlin-spring'
-	apply plugin: 'kotlin-jpa'
+	apply plugin: 'checkstyle'
 
     repositories {
        mavenCentral()
@@ -60,14 +58,23 @@ allprojects {
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
-    dependencies {
+	configurations { drivers }
+
+	checkstyle {
+		toolVersion '8.1'
+		configFile = rootProject.file("config/checkstyle/checkstyle.xml")
+	}
+
+	dependencies {
 		compile "org.jetbrains.kotlin:kotlin-stdlib-jre8"
 		compile "org.jetbrains.kotlin:kotlin-reflect"
 
         testCompile 'junit:junit:4.12'
 		testCompile "org.jetbrains.kotlin:kotlin-test"
 		testCompile "org.jetbrains.kotlin:kotlin-test-junit"
-    }
+
+		checkstyle "com.github.sevntu-checkstyle:sevntu-checks:1.24.2"
+	}
 }
 
 configure(subprojects.findAll { it.name.contains('api') }) {
@@ -102,28 +109,21 @@ configure(subprojects.findAll { it.name.contains('implementation') }) {
 		// pour les projets JPA
 		compile 'au.com.console:kotlin-jpa-specification-dsl:0.1.0'
 		// pour les projets search seulement
-        compile 'com.querydsl:querydsl-sql:4.1.3'
+		compile 'com.querydsl:querydsl-sql:4.1.4'
 		compile 'org.mapstruct:mapstruct-jdk8:1.2.0.CR1'
 	    apt 'org.mapstruct:mapstruct-processor:1.2.0.CR1'
     }
 }
 
 configure(subprojects.findAll { it.path.contains('search') }) {
-	configurations { drivers }
-	
-	sourceSets {
-		generated {
-			java
-		}
-	}
-	
+
 	dependencies {
     	drivers 'com.oracle:ojdbc6:11.2.0.3'
     	drivers 'com.oracle:xdb6:11.2.0.4'
     }
 
 	task rmQ(type: Delete) {
-	    delete fileTree(dir: "src/main/java/org/cocktail/gfc/support/querydsl4", include: "Q*")
+		delete fileTree("build/generated/source/apt/main").include("**/Q*")
 	}
 
 	if (project.hasProperty('queryDSLDbUrl')) {
@@ -134,8 +134,8 @@ configure(subprojects.findAll { it.path.contains('search') }) {
 	        jsonConfigurationFile = "${project.projectDir.absolutePath}/database.json"
 	        jsonCustomTypeMappingFile = "${project.projectDir.absolutePath}/typeMapping.json"
 	        targetPackage = "org.cocktail.gfc.${project.parent.name.replace('-', '.')}.querydsl4"
-	        targetSourceFolder = "${project.projectDir.absolutePath}/src/generated/java/"
-	        schemaToPackage = false
+			targetSourceFolder = "${project.projectDir.absolutePath}/build/generated/source/apt/main/"
+			schemaToPackage = false
 	        generateQIds = false
 	    }
 	}
