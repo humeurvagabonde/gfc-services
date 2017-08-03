@@ -31,7 +31,7 @@ public class ServiceFaitApplicationService implements ServiceFaitService {
     @Override
     public void supprimer(Long idDepSf) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
