@@ -1,4 +1,4 @@
-package org.cocktail.gfc.depense.mapper;
+package org.cocktail.gfc.depense.application.sf.mapper;
 
 import org.cocktail.gfc.depense.api.CodeAnalytiqueRepresentation;
 import org.cocktail.gfc.depense.metier.modele.codeanalytique.CodeAnalytique;
@@ -9,7 +9,7 @@ public interface ApiMappers {
 
     @Mapper
     interface CodeAnalytiqueMapper {
-        CodeAnalytiqueMapper INSTANCE = Mappers.getMapper(CodeAnalytiqueMapper.class);
+        ApiMappers.CodeAnalytiqueMapper INSTANCE = Mappers.getMapper(ApiMappers.CodeAnalytiqueMapper.class);
 
         CodeAnalytiqueRepresentation toApi(CodeAnalytique code);
     }

@@ -99,6 +99,8 @@ configure(subprojects.findAll { it.name.contains('implementation') }) {
 	}
 
     dependencies {
+		compile( project( ':common:common-persistence' ) )
+
     	compile "org.jetbrains.kotlin:kotlin-stdlib-jre8"
         compile 'org.springframework.boot:spring-boot-starter'
         compile 'org.springframework.boot:spring-boot-starter-web'
@@ -217,6 +219,20 @@ project(':app-wo') {
 	    compile "cocktail.fwk:FwkCktlRestServices:$fwkVersion"
 	    compile "com.oracle:ojdbc6:11.2.0.3"
 	    compile "org.reflections:reflections:0.9.9"
+	}
+}
+
+project(':common:common-bean') {
+	dependencies {
+		compile 'org.apache.commons:commons-lang3:3.6'
+		compile 'org.apache.commons:commons-math3:3.6.1'
+	}
+}
+
+project(':common:common-persistence') {
+	dependencies {
+		compile project(':common:common-bean')
+		compile 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final'
 	}
 }
 
