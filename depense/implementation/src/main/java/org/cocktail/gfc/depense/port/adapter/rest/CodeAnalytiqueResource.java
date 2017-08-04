@@ -2,7 +2,7 @@ package org.cocktail.gfc.depense.port.adapter.rest;
 
 import org.cocktail.gfc.depense.api.CodeAnalytiqueRepresentation;
 import org.cocktail.gfc.depense.api.ServiceDescriptor;
-import org.cocktail.gfc.depense.mapper.ApiMappers;
+import org.cocktail.gfc.depense.application.mapper.ApiMappers;
 import org.cocktail.gfc.depense.metier.modele.codeanalytique.CodeAnalytique;
 import org.cocktail.gfc.depense.metier.modele.codeanalytique.CodeAnalytiqueRepository;
 import org.slf4j.Logger;
@@ -15,7 +15,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
