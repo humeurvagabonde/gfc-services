@@ -2,7 +2,7 @@ package org.cocktail.gfc.depense.port.adapter.rest;
 
 import org.cocktail.gfc.depense.api.CodeAnalytiqueRepresentation;
 import org.cocktail.gfc.depense.api.ServiceDescriptor;
-import org.cocktail.gfc.depense.mapper.ApiMappers;
+import org.cocktail.gfc.depense.application.mapper.ApiMappers;
 import org.cocktail.gfc.depense.metier.modele.codeanalytique.CodeAnalytique;
 import org.cocktail.gfc.depense.metier.modele.codeanalytique.CodeAnalytiqueQuery;
 import org.cocktail.gfc.depense.metier.modele.codeanalytique.CodeAnalytiqueQueryKt;

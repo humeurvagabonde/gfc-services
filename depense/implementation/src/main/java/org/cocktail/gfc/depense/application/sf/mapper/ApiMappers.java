@@ -1,4 +1,4 @@
-package org.cocktail.gfc.depense.application.sf.mapper;
+package org.cocktail.gfc.depense.application.mapper;
 
 import org.cocktail.gfc.depense.api.CodeAnalytiqueRepresentation;
 import org.cocktail.gfc.depense.metier.modele.codeanalytique.CodeAnalytique;
