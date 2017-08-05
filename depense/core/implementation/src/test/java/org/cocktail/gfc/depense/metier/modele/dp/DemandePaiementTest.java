@@ -13,10 +13,9 @@ public class DemandePaiementTest {
                 11L, new Montant(14d), 12L, "2017-10-10",
                 null, null, 2017, 4,
                 new Montant(15d), new Montant(16d), new Montant(17d),
-                "2017-10-11", "2017-10-12", false, 0,
-                null);
+                "2017-10-11", "2017-10-12", false, 0);
         Assert.assertNotNull(dp);
-        Assert.assertNull(dp.getLignes());
+        Assert.assertEquals(0, dp.getLignes().size());
     }
 
 }

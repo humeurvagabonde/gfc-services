@@ -78,11 +78,16 @@ class DemandePaiement(
 
     @Column(name = "LOCK_VERSION")
     @Version
-    var version: Long,
-
+    var version: Long
+) {
     @OneToMany(mappedBy = "dp")
-    var lignes: List<DemandePaiementLigne> = listOf()
-)
+    var lignes: MutableList<DemandePaiementLigne> = mutableListOf()
+
+    fun ajouterLigne(ligne: DemandePaiementLigne): Unit {
+        lignes.add(ligne)
+        ligne.dp = this
+    }
+}
 
 @Entity
 @Table(name = "DEP_DP_LIGNE")
@@ -122,24 +127,6 @@ class DemandePaiementLigne(
     @JoinColumn(name="ID_DEP_DP")
     var dp: DemandePaiement
 )
-
-/**
-ATT_ORDRE	NUMBER	Yes
-CE_ORDRE	NUMBER	Yes
-DONT_AJUSTEMENT_TVA	NUMBER(12,2)	No
-ID_DEP_DP	NUMBER(38,0)	No
-ID_DEP_DP_LIGNE	NUMBER(38,0)	No
-ID_DEP_SF_LIGNE	NUMBER(38,0)	Yes
-LIBELLE	VARCHAR2(200 BYTE)	Yes
-MONTANT_HT	NUMBER(12,2)	No
-MONTANT_TTC	NUMBER(12,2)	No
-MONTANT_TVA	NUMBER(12,2)	No
-QUANTITE	NUMBER(12,2)	No
-TAUX_TVA	NUMBER(12,2)	No
-TVA_ID	NUMBER	No
-TYPA_ID	NUMBER	Yes
-TYPE_DP_LIGNE	VARCHAR2(30 BYTE)	No
- */
 
 
 

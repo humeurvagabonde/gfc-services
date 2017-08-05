@@ -4,6 +4,7 @@ import org.cocktail.gfc.common.bean.montant.Montant;
 import org.cocktail.gfc.depense.metier.modele.dp.DemandePaiement;
 import org.cocktail.gfc.depense.metier.modele.dp.DemandePaiementLigne;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -22,6 +23,7 @@ public class DemandePaiementApplicationServiceIntegTest {
     private DemandePaiementApplicationService dpAppService;
 
     @Test
+    @Ignore
     public void testChargementDpAvecLigne() {
         DemandePaiement dp = dpAppService.charger(1013540L);
         List<DemandePaiementLigne> lignes = dp.getLignes();

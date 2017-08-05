@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "name": "GFC",
+      "all": false,
+      "tables": ["DEP_EJ", "ADM_EB"],
+      "views": []
+    }
+  ],
+  "fk": false
+}
