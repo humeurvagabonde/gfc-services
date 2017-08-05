@@ -23,7 +23,6 @@ public class DemandePaiementApplicationServiceIntegTest {
     private DemandePaiementApplicationService dpAppService;
 
     @Test
-    @Ignore
     public void testChargementDpAvecLigne() {
         DemandePaiement dp = dpAppService.charger(1013540L);
         List<DemandePaiementLigne> lignes = dp.getLignes();

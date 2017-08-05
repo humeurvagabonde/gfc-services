@@ -2,12 +2,14 @@ package org.cocktail.gfc.depense.application.dp;
 
 import org.cocktail.gfc.depense.api.DemandePaiementService;
 import org.cocktail.gfc.depense.metier.modele.dp.DemandePaiement;
+import org.cocktail.gfc.depense.metier.modele.dp.DemandePaiementLigne;
 import org.cocktail.gfc.depense.metier.modele.dp.DemandePaiementRepository;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Named
 @Singleton
@@ -19,7 +21,7 @@ public class DemandePaiementApplicationService implements DemandePaiementService
 
     public DemandePaiement charger(Long id) {
         DemandePaiement dp = dpRepo.findOne(id);
-        dp.getLignes();
+        List<DemandePaiementLigne> lignes =  dp.getLignes();
         return dp;
     }
 
