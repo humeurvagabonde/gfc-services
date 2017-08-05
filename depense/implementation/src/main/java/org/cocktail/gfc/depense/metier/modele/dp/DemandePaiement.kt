@@ -3,7 +3,6 @@ package org.cocktail.gfc.depense.metier.modele.dp
 import org.cocktail.gfc.common.bean.montant.Montant
 import org.cocktail.gfc.common.bean.montant.Pourcentage
 import org.cocktail.gfc.common.bean.montant.Quantite
-import java.lang.invoke.MethodHandles
 import javax.persistence.*
 
 @Entity
@@ -81,14 +80,14 @@ class DemandePaiement(
     @Version
     var version: Long,
 
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "DEP_DP_LIGNE", joinColumns = arrayOf(JoinColumn(name = "ID_DEP_DP")))
-    @OrderColumn(name = "ID_DEP_DP_LIGNE", insertable = false, updatable = false)
+    @OneToMany(mappedBy = "dp")
     var lignes: List<DemandePaiementLigne> = listOf()
 )
 
-@Embeddable
+@Entity
+@Table(name = "DEP_DP_LIGNE")
 class DemandePaiementLigne(
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID_DEP_DP_LIGNE")
     var idDepDpLigne: Long?,
 
@@ -115,11 +114,14 @@ class DemandePaiementLigne(
 
     @Column(name = "TVA_ID")
     var idTva: Long,
-    var typeDpLigne: String
-) {
 
-}
+    @Column(name = "TYPE_DP_LIGNE")
+    var typeDpLigne: String,
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="ID_DEP_DP")
+    var dp: DemandePaiement
+)
 
 /**
 ATT_ORDRE	NUMBER	Yes
