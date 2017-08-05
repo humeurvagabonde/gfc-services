@@ -1,88 +1,143 @@
 package org.cocktail.gfc.depense.metier.modele.dp
 
 import org.cocktail.gfc.common.bean.montant.Montant
+import org.cocktail.gfc.common.bean.montant.Pourcentage
+import org.cocktail.gfc.common.bean.montant.Quantite
+import java.lang.invoke.MethodHandles
 import javax.persistence.*
 
 @Entity
-@Table(name = "DEP_DP", schema = "GFC")
+@Table(name = "DEP_DP")
 class DemandePaiement(
-        @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
-        @Column(name = "ID_DEP_DP")
-        var id: Long?,
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "ID_DEP_DP")
+    var id: Long?,
 
-        @Column(name = "NUM_DP")
-        var numero: String,
+    @Column(name = "NUM_DP")
+    var numero: String,
 
-        @Column(name = "ID_DEP_FACTURE")
-        var idFacture: Long,
+    @Column(name = "ID_DEP_FACTURE")
+    var idFacture: Long,
 
-        @Column(name = "MONTANT_FACTURE_TTC")
-        var montantFactureTTC: Montant,
+    @Column(name = "MONTANT_FACTURE_TTC")
+    var montantFactureTTC: Montant,
 
-        @Column(name = "MONTANT_A_PAYER_TTC")
-        var montantAPayerTTC: Montant,
+    @Column(name = "MONTANT_A_PAYER_TTC")
+    var montantAPayerTTC: Montant,
 
-        @Column(name = "LIBELLE")
-        var libelle: String?,
+    @Column(name = "LIBELLE")
+    var libelle: String?,
 
-        @Column(name = "MONTANT_RAPPROCHER_HT")
-        var montantARapprocherHT: Montant,
+    @Column(name = "MONTANT_RAPPROCHER_HT")
+    var montantARapprocherHT: Montant,
 
-        @Column(name = "FOU_A_PAYER")
-        var idFournisseurAPayer: Long,
+    @Column(name = "MONTANT_RAPPROCHER_TTC")
+    var montantARapprocherTTC: Montant,
 
-        @Column(name = "MONTANT_RETENUE_GARANTIE")
-        var montantRetenueGarantie: Montant,
+    @Column(name = "FOU_A_PAYER")
+    var idFournisseurAPayer: Long,
 
-        @Column(name = "PERS_ID_CREATION")
-        var idPrsCreateur: Long,
+    @Column(name = "MONTANT_RETENUE_GARANTIE")
+    var montantRetenueGarantie: Montant,
 
-        @Column(name = "DATE_CREATION")
-        var dateCreation: String
+    @Column(name = "PERS_ID_CREATION")
+    var idPrsCreateur: Long,
+
+    @Column(name = "DATE_CREATION")
+    var dateCreation: String,
+
+    @Column(name = "PERS_ID_MODIFICATION")
+    var idPrsModification: Long?,
+
+    @Column(name = "DATE_MODIFICATION")
+    var dateModification: String?,
+
+    @Column(name = "EXE_ORDRE")
+    var exeOrdre: Int,
+
+    // TODO : transformer en enum
+    @Column(name = "TYET_ID")
+    var tyetId: Long,
+
+    @Column(name = "MONTANT_FACTURE_HT")
+    var montantFactureHT: Montant,
+
+    @Column(name = "MONTANT_FACTURE_TVA")
+    var montantFactureTVA: Montant,
+
+    @Column(name = "MONTANT_A_PAYER_TTC_APRES_RG")
+    var montantAPayerTTCApresRG: Montant,
+
+    @Column(name = "DATE_ECHEANCE_THEORIQUE")
+    var dateEcheanceTheorique: String,
+
+    @Column(name = "DATE_ECHEANCE_MODIFIEE")
+    var dateEcheanceModifiee: String,
+
+    @Column(name = "EN_ATTENTE")
+    var enAttente: Boolean,
+
+    @Column(name = "LOCK_VERSION")
+    @Version
+    var version: Long,
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "DEP_DP_LIGNE", joinColumns = arrayOf(JoinColumn(name = "ID_DEP_DP")))
+    @OrderColumn(name = "ID_DEP_DP_LIGNE", insertable = false, updatable = false)
+    var lignes: List<DemandePaiementLigne> = listOf()
 )
 
+@Embeddable
+class DemandePaiementLigne(
+    @Column(name = "ID_DEP_DP_LIGNE")
+    var idDepDpLigne: Long?,
 
-/*
+    @Column(name = "LIBELLE")
+    var libelle: String?,
 
+    @Column(name = "DONT_AJUSTEMENT_TVA")
+    var dontAjustementTVA: Montant,
+
+    @Column(name = "MONTANT_HT")
+    var montantHT: Montant,
+
+    @Column(name = "MONTANT_TTC")
+    var montantTTC: Montant,
+
+    @Column(name = "MONTANT_TVA")
+    var montantTVA: Montant,
+
+    @Column(name = "QUANTITE")
+    var quantite: Quantite,
+
+    @Column(name = "TAUX_TVA")
+    var tauxTVA: Pourcentage,
+
+    @Column(name = "TVA_ID")
+    var idTva: Long,
+    var typeDpLigne: String
+) {
+
+}
+
+
+/**
+ATT_ORDRE	NUMBER	Yes
+CE_ORDRE	NUMBER	Yes
+DONT_AJUSTEMENT_TVA	NUMBER(12,2)	No
 ID_DEP_DP	NUMBER(38,0)	No
-NUM_DP	VARCHAR2(20 BYTE)	No
-ID_DEP_FACTURE	NUMBER(38,0)	No
-FOU_ORDRE	NUMBER(38,0)	No
-MONTANT_FACTURE_TTC	NUMBER(12,2)	No
-MONTANT_A_PAYER_TTC	NUMBER(12,2)	No
+ID_DEP_DP_LIGNE	NUMBER(38,0)	No
+ID_DEP_SF_LIGNE	NUMBER(38,0)	Yes
 LIBELLE	VARCHAR2(200 BYTE)	Yes
-MONTANT_RAPPROCHER_HT	NUMBER(12,2)	No
-FOU_A_PAYER	NUMBER(38,0)	No
-MONTANT_RETENUE_GARANTIE	NUMBER(12,2)	Yes
-PERS_ID_CREATION	NUMBER	No
-DATE_CREATION	VARCHAR2(30 BYTE)	No
-PERS_ID_MODIFICATION	NUMBER	Yes
-DATE_MODIFICATION	VARCHAR2(30 BYTE)	Yes
-EXE_ORDRE	NUMBER(4,0)	No
-TYET_ID	NUMBER	No
-MOD_ORDRE	NUMBER	No
-MONTANT_FACTURE_HT	NUMBER(12,2)	No
-MONTANT_FACTURE_TVA	NUMBER(12,2)	No
-MONTANT_A_PAYER_TTC_APRES_RG	NUMBER(12,2)	No
-DATE_ECHEANCE_THEORIQUE	VARCHAR2(30 BYTE)	No
-PERS_ID_VALID_OU_REFUS_ORDO	NUMBER	Yes
-DATE_VALID_OU_REFUS_ORDO	VARCHAR2(30 BYTE)	Yes
-MOTIF_REFUS_ORDO	VARCHAR2(4000 BYTE)	Yes
-PERS_ID_VISA_OU_REJET_COMPTAB	NUMBER	Yes
-DATE_VISA_OU_REJET_COMPTAB	VARCHAR2(30 BYTE)	Yes
-MOTIF_REJET_COMPTAB	VARCHAR2(4000 BYTE)	Yes
-RIB_ORDRE_ORDO	NUMBER(38,0)	Yes
-RIB_ORDRE_COMPTAB	NUMBER(38,0)	Yes
-DATE_PAIEMENT	VARCHAR2(30 BYTE)	Yes
-PAI_ORDRE	NUMBER	Yes
-EN_ATTENTE	NUMBER(1,0)	No
-DATE_EN_ATTENTE	VARCHAR2(30 BYTE)	Yes
-OBJ_EN_ATTENTE	VARCHAR2(500 BYTE)	Yes
-PERS_ID_EN_ATTENTE	NUMBER	Yes
-DATE_ECHEANCE_MODIFIEE	VARCHAR2(30 BYTE)	No
-MONTANT_RAPPROCHER_TTC	NUMBER(12,2)	No
-LOCK_VERSION	NUMBER(38,0)	No
-DATE_DESACTIVATION	VARCHAR2(30 BYTE)	Yes
-PERS_ID_DESACTIVATION	NUMBER	Yes
-
+MONTANT_HT	NUMBER(12,2)	No
+MONTANT_TTC	NUMBER(12,2)	No
+MONTANT_TVA	NUMBER(12,2)	No
+QUANTITE	NUMBER(12,2)	No
+TAUX_TVA	NUMBER(12,2)	No
+TVA_ID	NUMBER	No
+TYPA_ID	NUMBER	Yes
+TYPE_DP_LIGNE	VARCHAR2(30 BYTE)	No
  */
+
+
+

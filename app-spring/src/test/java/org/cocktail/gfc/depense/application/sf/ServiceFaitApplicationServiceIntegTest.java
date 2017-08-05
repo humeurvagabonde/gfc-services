@@ -1,8 +1,8 @@
 package org.cocktail.gfc.depense.application.sf;
 
 import org.cocktail.gfc.depense.api.CreerSfCommand;
-import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;

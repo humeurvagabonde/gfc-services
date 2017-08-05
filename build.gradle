@@ -170,6 +170,8 @@ project(':app-spring') {
 		compile( project( ':compta-generale:implementation' ) )
 		compile( project( ':depense:api' ) )
 		compile( project( ':depense:implementation' ) )
+		compile( project( ':depense-search:api' ) )
+		compile( project( ':depense-search:implementation' ) )
 	
 	    compile('org.springframework.boot:spring-boot-starter-actuator')
 	    compile('org.springframework.boot:spring-boot-starter-web')
