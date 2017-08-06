@@ -4,6 +4,9 @@ import org.cocktail.gfc.common.bean.montant.Montant
 import org.cocktail.gfc.common.bean.montant.Pourcentage
 import org.cocktail.gfc.common.bean.montant.Quantite
 import javax.persistence.*
+import javax.persistence.JoinColumn
+
+
 
 @Entity
 @Table(name = "DEP_DP")
@@ -81,13 +84,24 @@ class DemandePaiement(
     @Version
     var version: Long = 0
 
-    @OneToMany(mappedBy = "dp", fetch = FetchType.EAGER)
-    var lignes: List<DemandePaiementLigne> = listOf()
+    @Embedded
+    var repartArticle: DemandePaiementRepartArticle? = null
 
-    fun ajouterLigne(ligne: DemandePaiementLigne): Unit {
-        lignes.toMutableList().add(ligne)
-        ligne.dp = this
-    }
+//    @OneToMany(mappedBy = "dp", fetch = FetchType.EAGER)
+//    var lignes: List<DemandePaiementLigne> = listOf()
+//
+//    fun ajouterLigne(ligne: DemandePaiementLigne): Unit {
+//        lignes.toMutableList().add(ligne)
+//        ligne.dp = this
+//    }
+}
+
+@Embeddable
+class DemandePaiementRepartArticle {
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID_DEP_DP")
+    @OrderBy("ID_DEP_DP_LIGNE")
+    var lignes: List<DemandePaiementLigne> = listOf()
 }
 
 @Entity

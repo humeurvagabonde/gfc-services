@@ -21,7 +21,7 @@ public class DemandePaiementApplicationService implements DemandePaiementService
 
     public DemandePaiement charger(Long id) {
         DemandePaiement dp = dpRepo.findOne(id);
-        List<DemandePaiementLigne> lignes =  dp.getLignes();
+        List<DemandePaiementLigne> lignes =  dp.getRepartArticle().getLignes();
         return dp;
     }
 

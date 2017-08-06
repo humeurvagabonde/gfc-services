@@ -25,7 +25,7 @@ public class DemandePaiementApplicationServiceIntegTest {
     @Test
     public void testChargementDpAvecLigne() {
         DemandePaiement dp = dpAppService.charger(1013540L);
-        List<DemandePaiementLigne> lignes = dp.getLignes();
+        List<DemandePaiementLigne> lignes = dp.getRepartArticle().getLignes();
         Assert.assertNotNull(dp);
         Assert.assertEquals(new Montant(1048.25d), dp.getMontantAPayerTTC());
         Assert.assertEquals(2, lignes.size());
