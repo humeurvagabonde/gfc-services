@@ -167,12 +167,10 @@ project(':app-spring') {
 		compile( project( ':compta-budgetaire:implementation' ) )
 		compile( project( ':compta-generale:api' ) )
 		compile( project( ':compta-generale:implementation' ) )
-		compile( project( ':depense:budgetaire:api' ) )
-		compile( project( ':depense:budgetaire:implementation' ) )
 		compile( project( ':depense:core:api' ) )
 		compile( project( ':depense:core:implementation' ) )
-		compile( project( ':depense:generale:api' ) )
-		compile( project( ':depense:generale:implementation' ) )
+		compile( project( ':depense:financement:api' ) )
+		compile( project( ':depense:financement:implementation' ) )
 		compile( project( ':depense:search:api' ) )
 		compile( project( ':depense:search:implementation' ) )
 	
@@ -220,12 +218,10 @@ project(':app-wo') {
 		compile( project( ':compta-budgetaire:implementation' ) )
 		compile( project( ':compta-generale:api' ) )
 		compile( project( ':compta-generale:implementation' ) )
-		compile( project( ':depense:budgetaire:api' ) )
-		compile( project( ':depense:budgetaire:implementation' ) )
 		compile( project( ':depense:core:api' ) )
 		compile( project( ':depense:core:implementation' ) )
-		compile( project( ':depense:generale:api' ) )
-		compile( project( ':depense:generale:implementation' ) )
+		compile( project( ':depense:financement:api' ) )
+		compile( project( ':depense:financement:implementation' ) )
 		compile( project( ':depense:search:api' ) )
 		compile( project( ':depense:search:implementation' ) )
 
@@ -264,21 +260,15 @@ project(':compta-generale:implementation') {
 	}
 }
 
-project(':depense:budgetaire:implementation') {
-	dependencies {
-		api( project( ':depense:budgetaire:api' ) )
-	}
-}
-
 project(':depense:core:implementation') {
 	dependencies {
 		api( project( ':depense:core:api' ) )
 	}
 }
 
-project(':depense:generale:implementation') {
+project(':depense:financement:implementation') {
 	dependencies {
-		api( project( ':depense:generale:api' ) )
+		api( project( ':depense:financement:api' ) )
 	}
 }
 

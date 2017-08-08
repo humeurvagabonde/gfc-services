@@ -136,11 +136,11 @@ class DemandePaiementLigne(
     var idTva: Long,
 
     @Column(name = "TYPE_DP_LIGNE")
-    var typeDpLigne: String,
+    var typeDpLigne: String
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="ID_DEP_DP")
-    var dp: DemandePaiement
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name="ID_DEP_DP")
+//    var dp: DemandePaiement
 )
 
 
