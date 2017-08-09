@@ -12,11 +12,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Transactional
 public class DemandePaiementApplicationServiceIntegTest {
 
     @Inject
