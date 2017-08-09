@@ -31,4 +31,10 @@ public class DemandePaiementApplicationServiceIntegTest {
         Assert.assertEquals(2, lignes.size());
     }
 
+    @Test
+    public void testAjouterBienAPayer() {
+        dpAppService.ajouterBienAPayer(1013540L);
+    }
+
+
 }

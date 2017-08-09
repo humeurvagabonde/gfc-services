@@ -6,8 +6,6 @@ import org.cocktail.gfc.common.bean.montant.Quantite
 import javax.persistence.*
 import javax.persistence.JoinColumn
 
-
-
 @Entity
 @Table(name = "DEP_DP")
 class DemandePaiement(
@@ -84,6 +82,9 @@ class DemandePaiement(
     @Version
     var version: Long = 0
 
+    // https://vladmihalcea.com/2017/03/29/the-best-way-to-map-a-onetomany-association-with-jpa-and-hibernate/
+    // Utilisation d'une relation bidirectionnelle diminue le nombre de requêtes generées mais impose d'ecrire un ajouterBien qui cree le lien bidirectionnel (addChild / setParent)
+    // Utilisation d'une relation unidirectionnelle ajoute 1 requête update inutile ; p.e plus simple a gérer en Java
     @Embedded
     var repartArticle: DemandePaiementRepartArticle? = null
 
@@ -98,19 +99,16 @@ class DemandePaiement(
 
 @Embeddable
 class DemandePaiementRepartArticle {
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_DEP_DP")
+    @OneToMany(fetch = FetchType.EAGER, cascade = arrayOf(CascadeType.ALL), orphanRemoval = true)
+    @JoinColumn(name = "ID_DEP_DP", nullable = false)
     @OrderBy("ID_DEP_DP_LIGNE")
     var lignes: List<DemandePaiementLigne> = listOf()
 }
 
 @Entity
 @Table(name = "DEP_DP_LIGNE")
+@SequenceGenerator(name = "DP.DP_LIGNE_SEQ", sequenceName = "DEP_DP_LIGNE_SEQ")
 class DemandePaiementLigne(
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "ID_DEP_DP_LIGNE")
-    var idDepDpLigne: Long?,
-
     @Column(name = "LIBELLE")
     var libelle: String?,
 
@@ -141,7 +139,11 @@ class DemandePaiementLigne(
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name="ID_DEP_DP")
 //    var dp: DemandePaiement
-)
+) {
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DP.DP_LIGNE_SEQ")
+    @Column(name = "ID_DEP_DP_LIGNE")
+    var idDepDpLigne: Long? = null
+}
 
 
 
