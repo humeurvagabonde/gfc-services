@@ -5,8 +5,7 @@ import org.cocktail.gfc.depense.api.DemandePaiementValideeEvent;
 import org.cocktail.gfc.depense.comptabilite.application.RapprochementDpEnComptaApplicationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.event.TransactionPhase;
-import org.springframework.transaction.event.TransactionalEventListener;
+import org.springframework.context.event.EventListener;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -15,14 +14,14 @@ import javax.inject.Singleton;
 // TODO handleDpValideeEvent : un seul point creerRapprochementDpEnComptabilite ou plusieurs comme actuellement ?
 @Named
 @Singleton
-public class DemandePaiementEventListener {
+public class ValidationDemandePaiementSaga {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DemandePaiementEventListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ValidationDemandePaiementSaga.class);
 
     @Inject
     private RapprochementDpEnComptaApplicationService rapprochementDpAppSrv;
 
-    @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
+    @EventListener
     public void handleDpValideeEvent(DemandePaiementValideeEvent event) {
         LOGGER.debug(String.format("%s Validee le %s",event.getNumDp(), event.getTimestamp()));
 
@@ -31,7 +30,7 @@ public class DemandePaiementEventListener {
 
     }
 
-    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMPLETION)
+    @EventListener
     public void handleBrouillardCreeEvent(BrouillardCreeEvent event) {
         LOGGER.debug(String.format("Brouillard %s genere le %s", event.getIdBrouillard(), event.getTimestamp()));
 

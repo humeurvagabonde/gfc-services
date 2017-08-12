@@ -23,6 +23,7 @@ public class BrouillardApplicationService implements ComptaGeneraleService {
         // creer le brouillard
         // enregistrer le brouillard
 
+
         // publier evenement
         Random idGenerator = new Random();
         publisher.publishEvent(new BrouillardCreeEvent(idGenerator.nextLong()));

@@ -8,7 +8,7 @@ import javax.persistence.JoinColumn
 
 @Entity
 @Table(name = "DEP_DP")
-class DemandePaiement(
+data class DemandePaiement(
 
     @Column(name = "NUM_DP")
     var numero: String,
@@ -98,17 +98,16 @@ class DemandePaiement(
 }
 
 @Embeddable
-class DemandePaiementRepartArticle {
-    @OneToMany(fetch = FetchType.EAGER, cascade = arrayOf(CascadeType.ALL), orphanRemoval = true)
-    @JoinColumn(name = "ID_DEP_DP", nullable = false)
-    @OrderBy("ID_DEP_DP_LIGNE")
-    val lignes: List<DemandePaiementLigne> = listOf()
-}
+data class DemandePaiementRepartArticle(
+        @OneToMany(fetch = FetchType.EAGER, cascade = arrayOf(CascadeType.ALL), orphanRemoval = true)
+        @JoinColumn(name = "ID_DEP_DP", nullable = false)
+        @OrderBy("ID_DEP_DP_LIGNE")
+        val lignes: List<DemandePaiementLigne> = listOf())
 
 @Entity
 @Table(name = "DEP_DP_LIGNE")
 @SequenceGenerator(name = "DP.DP_LIGNE_SEQ", sequenceName = "DEP_DP_LIGNE_SEQ")
-class DemandePaiementLigne(
+data class DemandePaiementLigne(
     @Column(name = "LIBELLE")
     var libelle: String?,
 

@@ -4,14 +4,14 @@ import org.cocktail.gfc.common.bean.montant.Montant
 import javax.persistence.*
 
 // TODO bosser sur les visibilites
-class FinancementDemandePaiement(
+data class FinancementDemandePaiement(
     val idDp: Long,
     val numeroDp: String
 ) {
     val financementParBien: MutableMap<Long, FinancementBienDp>  = mutableMapOf()
 }
 
-class FinancementBienDp(
+data class FinancementBienDp(
         val bien: BienAPayer) {
 
     val repartitionsComptaGene: MutableList<RepartitionComptaGene> = mutableListOf()
@@ -20,18 +20,18 @@ class FinancementBienDp(
     fun getIdBien() = bien.idBienAPayer
 }
 
-class BienAPayer(
+data class BienAPayer(
         val idBienAPayer: Long,
         val montantHT: Montant) {
 }
 
-class RepartitionComptaGene(
+data class RepartitionComptaGene(
         val idRepart: Long
 ) {
 
 }
 
-class RepartitionComptaBud(
+data class RepartitionComptaBud(
         val idRepart: Long
 ) {
 

@@ -16,12 +16,12 @@ public class EventLoggerListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EventLoggerListener.class);
 
-    @TransactionalEventListener
+    @EventListener
     public void handleHelloGeneEvent(HelloComptaGeneraleSentEvent event) {
         LOGGER.debug(">>> Audit : Nouvel hello " + event.getTimestamp());
     }
 
-    @TransactionalEventListener
+    @EventListener
     public void handleDpValideeEvent(DemandePaiementValideeEvent event) {
         LOGGER.debug(">>> Audit : Nouvelle DP validee " + event.getTimestamp());
     }
