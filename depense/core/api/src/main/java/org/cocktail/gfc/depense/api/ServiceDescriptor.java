@@ -5,11 +5,12 @@ import feign.RequestLine;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 public interface ServiceDescriptor {
 
-    interface CodeAnalytiqueDescriptor {
+    interface CodeAnalytiqueServiceDescriptor {
         @GET
         @Path("/")
         @RequestLine("GET /api/v1/gfc/codes-analytique?code={code}&libelle={libelle}")
@@ -21,5 +22,13 @@ public interface ServiceDescriptor {
         @Path("/{code}")
         @RequestLine("GET /api/v1/gfc/codes-analytique/{code}")
         CodeAnalytiqueRepresentation getCodeAnalytique(@PathParam("code") @Param("code") String code);
+    }
+
+    interface DemandePaiementServiceDescriptor {
+        @GET
+        @Path("/{id}/valider")
+        @RequestLine("GET /api/v1/gfc/demandes-paiement/{id}/valider")
+        Response valider(@PathParam("id") @Param("id") Long idDp);
+
     }
 }

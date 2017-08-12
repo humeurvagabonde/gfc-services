@@ -102,7 +102,7 @@ class DemandePaiementRepartArticle {
     @OneToMany(fetch = FetchType.EAGER, cascade = arrayOf(CascadeType.ALL), orphanRemoval = true)
     @JoinColumn(name = "ID_DEP_DP", nullable = false)
     @OrderBy("ID_DEP_DP_LIGNE")
-    var lignes: List<DemandePaiementLigne> = listOf()
+    val lignes: List<DemandePaiementLigne> = listOf()
 }
 
 @Entity

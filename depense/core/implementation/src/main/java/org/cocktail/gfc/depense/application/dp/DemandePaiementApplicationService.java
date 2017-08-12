@@ -4,10 +4,12 @@ import org.cocktail.gfc.common.bean.montant.Montant;
 import org.cocktail.gfc.common.bean.montant.Pourcentage;
 import org.cocktail.gfc.common.bean.montant.Quantite;
 import org.cocktail.gfc.depense.api.DemandePaiementService;
+import org.cocktail.gfc.depense.api.DemandePaiementValideeEvent;
 import org.cocktail.gfc.depense.metier.modele.dp.DemandePaiement;
 import org.cocktail.gfc.depense.metier.modele.dp.DemandePaiementLigne;
 import org.cocktail.gfc.depense.metier.modele.dp.DemandePaiementRepartArticle;
 import org.cocktail.gfc.depense.metier.modele.dp.DemandePaiementRepository;
+import org.springframework.context.ApplicationEventPublisher;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -22,6 +24,9 @@ public class DemandePaiementApplicationService implements DemandePaiementService
 
     @Inject
     private DemandePaiementRepository dpRepo;
+
+    @Inject
+    private ApplicationEventPublisher publisher;
 
     public DemandePaiement charger(Long id) {
         DemandePaiement dp = dpRepo.findOne(id);
@@ -45,6 +50,22 @@ public class DemandePaiementApplicationService implements DemandePaiementService
         dp.getRepartArticle().getLignes().add(nxBien);
 
         dpRepo.save(dp);
+    }
+
+    @Override
+    public Long valider(Long idDp, Long validateurPersId) {
+        DemandePaiement dp = charger(idDp);
+
+        // valider la faisabilite (financement ok, etc)
+        // changement etat
+        // save
+        dp.setTyetId(1L);
+        dpRepo.save(dp);
+
+        // lancer l'evenement
+        publisher.publishEvent(new DemandePaiementValideeEvent(dp.getId(), dp.getNumero()));
+
+        return idDp;
     }
 
 }

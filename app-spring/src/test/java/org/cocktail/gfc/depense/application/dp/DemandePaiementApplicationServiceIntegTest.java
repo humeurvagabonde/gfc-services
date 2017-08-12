@@ -25,18 +25,26 @@ public class DemandePaiementApplicationServiceIntegTest {
     private DemandePaiementApplicationService dpAppService;
 
     @Test
+    @Ignore
     public void testChargementDpAvecLigne() {
         DemandePaiement dp = dpAppService.charger(1013540L);
         List<DemandePaiementLigne> lignes = dp.getRepartArticle().getLignes();
         Assert.assertNotNull(dp);
         Assert.assertEquals(new Montant(1048.25d), dp.getMontantAPayerTTC());
-        Assert.assertEquals(2, lignes.size());
+        Assert.assertEquals(3, lignes.size());
     }
 
     @Test
+    @Ignore
     public void testAjouterBienAPayer() {
         dpAppService.ajouterBienAPayer(1013540L);
     }
 
+    @Test
+    public void testValider() {
+        dpAppService.valider(1013543L, 4L);
+        DemandePaiement dp = dpAppService.charger(1013543L);
+        Assert.assertEquals(1L, dp.getTyetId()); // VALIDE
+    }
 
 }

@@ -14,7 +14,7 @@ public class DemandePaiementTest {
                 "2017-10-11", "2017-10-12",
                 11L, "2017-10-10", 4, false);
         Assert.assertNotNull(dp);
-        Assert.assertEquals(0, dp.getLignes().size());
+        Assert.assertNull(dp.getRepartArticle());
     }
 
 }

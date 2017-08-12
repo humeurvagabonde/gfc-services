@@ -1,4 +1,4 @@
-package org.cocktail.gfc.depense.financement.port.adapater.persistence;
+package org.cocktail.gfc.depense.financement.port.adapter.persistence;
 
 import org.cocktail.gfc.common.bean.montant.Montant;
 import org.cocktail.gfc.depense.financement.metier.modele.dp.*;

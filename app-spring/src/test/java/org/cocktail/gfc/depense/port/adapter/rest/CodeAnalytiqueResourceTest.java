@@ -28,13 +28,13 @@ public class CodeAnalytiqueResourceTest {
     @Test
     @Ignore
     public void findAll() throws Exception {
-        ServiceDescriptor.CodeAnalytiqueDescriptor desc =
+        ServiceDescriptor.CodeAnalytiqueServiceDescriptor desc =
             Feign.builder()
                 .contract(new JAXRSContract())
                 .decoder(new GsonDecoder())
                 .logger(new feign.slf4j.Slf4jLogger())
                 .logLevel(Logger.Level.FULL)
-                .target(ServiceDescriptor.CodeAnalytiqueDescriptor.class, "http://localhost:9000/api/v1/gfc/codes-analytique");
+                .target(ServiceDescriptor.CodeAnalytiqueServiceDescriptor.class, "http://localhost:9000/api/v1/gfc/codes-analytique");
 
         Iterable<CodeAnalytiqueRepresentation> repr = desc.find(null, null);
 
@@ -45,13 +45,13 @@ public class CodeAnalytiqueResourceTest {
     @Test
     @Ignore
     public void findByCode() throws Exception {
-        ServiceDescriptor.CodeAnalytiqueDescriptor desc =
+        ServiceDescriptor.CodeAnalytiqueServiceDescriptor desc =
                 Feign.builder()
                         .contract(new JAXRSContract())
                         .decoder(new GsonDecoder())
                         .logger(new feign.slf4j.Slf4jLogger())
                         .logLevel(Logger.Level.FULL)
-                        .target(ServiceDescriptor.CodeAnalytiqueDescriptor.class, "http://localhost:9000/api/v1/gfc/");
+                        .target(ServiceDescriptor.CodeAnalytiqueServiceDescriptor.class, "http://localhost:9000/api/v1/gfc/");
 
         Iterable<CodeAnalytiqueRepresentation> repr = desc.find("AA01", null);
 
@@ -63,13 +63,13 @@ public class CodeAnalytiqueResourceTest {
     @Test
     @Ignore
     public void getCodeAnalytique() throws Exception {
-        ServiceDescriptor.CodeAnalytiqueDescriptor desc =
+        ServiceDescriptor.CodeAnalytiqueServiceDescriptor desc =
                 Feign.builder()
                         //.contract(new JAXRSContract())
                         .decoder(new GsonDecoder())
                         .logger(new feign.slf4j.Slf4jLogger())
                         .logLevel(Logger.Level.FULL)
-                        .target(ServiceDescriptor.CodeAnalytiqueDescriptor.class, "http://localhost:9000/");
+                        .target(ServiceDescriptor.CodeAnalytiqueServiceDescriptor.class, "http://localhost:9000/");
 
         CodeAnalytiqueRepresentation repr = desc.getCodeAnalytique("AA01");
 
