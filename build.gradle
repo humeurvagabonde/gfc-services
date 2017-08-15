@@ -32,7 +32,7 @@ buildscript {
 
 ext.generateJarFwks = false
 
-allprojects {
+subprojects {
 
     apply plugin: 'java-library'
     apply plugin: 'kotlin'
@@ -148,7 +148,6 @@ configure(subprojects.findAll { it.path.contains('search') }) {
 }
 
 project(':app-spring') {
-	//apply plugin: 'application'
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'com.github.johnrengelman.shadow'
 	apply plugin: "com.gorylenko.gradle-git-properties"
@@ -168,8 +167,14 @@ project(':app-spring') {
 		compile( project( ':compta-budgetaire:implementation' ) )
 		compile( project( ':compta-generale:api' ) )
 		compile( project( ':compta-generale:implementation' ) )
-		compile( project( ':depense:api' ) )
-		compile( project( ':depense:implementation' ) )
+		compile( project( ':depense:comptabilite:api' ) )
+		compile( project( ':depense:comptabilite:implementation' ) )
+		compile( project( ':depense:core:api' ) )
+		compile( project( ':depense:core:implementation' ) )
+		compile( project( ':depense:financement:api' ) )
+		compile( project( ':depense:financement:implementation' ) )
+		compile( project( ':depense:search:api' ) )
+		compile( project( ':depense:search:implementation' ) )
 	
 	    compile('org.springframework.boot:spring-boot-starter-actuator')
 	    compile('org.springframework.boot:spring-boot-starter-web')
@@ -211,13 +216,19 @@ project(':app-wo') {
 	dependencies {
 	    apt "cocktail.libs:generateur-controleur-wo-compile:0.1.0"
 	
-		api( project( ':compta-budgetaire:api' ) )
-		implementation( project( ':compta-budgetaire:implementation' ) )
-        api( project( ':compta-generale:api' ) )
-        implementation( project( ':compta-generale:implementation' ) )
-        api( project( ':depense:api' ) )
-        implementation( project( ':depense:implementation' ) )
-		
+		compile( project( ':compta-budgetaire:api' ) )
+		compile( project( ':compta-budgetaire:implementation' ) )
+		compile( project( ':compta-generale:api' ) )
+		compile( project( ':compta-generale:implementation' ) )
+		compile( project( ':depense:comptabilite:api' ) )
+		compile( project( ':depense:comptabilite:implementation' ) )
+		compile( project( ':depense:core:api' ) )
+		compile( project( ':depense:core:implementation' ) )
+		compile( project( ':depense:financement:api' ) )
+		compile( project( ':depense:financement:implementation' ) )
+		compile( project( ':depense:search:api' ) )
+		compile( project( ':depense:search:implementation' ) )
+
 	    compile('org.springframework.boot:spring-boot-starter-web')
 	    compile "cocktail.libs:generateur-controleur-wo-runtime:0.1.0"
 	    compile "cocktail.fwk:FwkCktlRestServices:$fwkVersion"
@@ -253,14 +264,28 @@ project(':compta-generale:implementation') {
 	}
 }
 
-project(':depense:implementation') {
+project(':depense:comptabilite:implementation') {
 	dependencies {
-		api( project( ':depense:api' ) )
+        api( project( ':compta-generale:api' ) )
+        api( project( ':depense:comptabilite:api' ) )
+		api( project( ':depense:core:api' ) )
 	}
 }
 
-project(':depense-search:implementation') {
+project(':depense:core:implementation') {
 	dependencies {
-		api( project( ':depense-search:api' ) )
+		api( project( ':depense:core:api' ) )
+	}
+}
+
+project(':depense:financement:implementation') {
+	dependencies {
+		api( project( ':depense:financement:api' ) )
+	}
+}
+
+project(':depense:search:implementation') {
+	dependencies {
+		api( project( ':depense:search:api' ) )
 	}
 }

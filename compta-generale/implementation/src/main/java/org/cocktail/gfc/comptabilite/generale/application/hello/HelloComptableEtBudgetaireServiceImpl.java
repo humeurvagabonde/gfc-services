@@ -10,9 +10,11 @@ import org.springframework.context.ApplicationEventPublisher;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import javax.transaction.Transactional;
 
 @Named
 @Singleton
+@Transactional(rollbackOn = Exception.class)
 public class HelloComptableEtBudgetaireServiceImpl implements HelloComptableEtBudgetaireService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HelloComptableEtBudgetaireService.class);
