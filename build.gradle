@@ -11,7 +11,7 @@ buildscript {
     	springBootVersion = '1.5.4.RELEASE'
     	aptPluginVersion = '0.10'
     	shadowVersion = '2.0.1'
-		kotlinVersion = '1.1.3-2'
+		kotlinVersion = '1.1.4-2'
 	}
     repositories { 
     	mavenCentral()
@@ -34,7 +34,6 @@ ext.generateJarFwks = false
 
 subprojects {
 
-    apply plugin: 'java-library'
     apply plugin: 'kotlin'
 	apply plugin: 'kotlin-spring'
 	apply plugin: 'kotlin-jpa'
@@ -253,39 +252,39 @@ project(':common:common-persistence') {
 
 project(':compta-budgetaire:implementation') {
 	dependencies {
-		api( project( ':compta-budgetaire:api' ) )
+		compile( project( ':compta-budgetaire:api' ) )
 	}
 }
 
 project(':compta-generale:implementation') {
 	dependencies {
-		api( project( ':compta-budgetaire:api' ) )
-		api( project( ':compta-generale:api' ) )
+		compile( project( ':compta-budgetaire:api' ) )
+		compile( project( ':compta-generale:api' ) )
 	}
 }
 
 project(':depense:comptabilite:implementation') {
 	dependencies {
-        api( project( ':compta-generale:api' ) )
-        api( project( ':depense:comptabilite:api' ) )
-		api( project( ':depense:core:api' ) )
+        compile( project( ':compta-generale:api' ) )
+        compile( project( ':depense:comptabilite:api' ) )
+		compile( project( ':depense:core:api' ) )
 	}
 }
 
 project(':depense:core:implementation') {
 	dependencies {
-		api( project( ':depense:core:api' ) )
+		compile( project( ':depense:core:api' ) )
 	}
 }
 
 project(':depense:financement:implementation') {
 	dependencies {
-		api( project( ':depense:financement:api' ) )
+		compile( project( ':depense:financement:api' ) )
 	}
 }
 
 project(':depense:search:implementation') {
 	dependencies {
-		api( project( ':depense:search:api' ) )
+		compile( project( ':depense:search:api' ) )
 	}
 }
