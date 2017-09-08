@@ -35,6 +35,8 @@ public class ValidationDemandePaiementSaga {
         LOGGER.debug(String.format("Brouillard %s genere le %s", event.getIdBrouillard(), event.getTimestamp()));
 
         rapprochementDpAppSrv.creerRapprochementDpEntreComptaGeneetBudgetaire();
+
+        //if(true) throw new RuntimeException();
     }
 
 }
