@@ -152,9 +152,11 @@ project(':app-spring') {
 	apply plugin: "com.gorylenko.gradle-git-properties"
 	apply plugin: 'maven'
 
+	def artifactVersion = project.property('version')
+    
 	jar {
 		baseName = 'gfc-services'
-		version = version
+		version = artifactVersion
 	}
 
 	bootRepackage  {
@@ -191,7 +193,7 @@ project(':app-spring') {
 			repository(url: "http://nexus.intra-cocktail.org/content/repositories/cocktail/") {
 				authentication(userName: nexusUserName, password: nexusPassword)
 			}
-			pom.version = version
+			pom.version = artifactVersion
 			pom.groupId = 'cocktail.application'
 			pom.artifactId = 'gfc-services'
 		}
