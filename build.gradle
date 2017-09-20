@@ -30,9 +30,6 @@ buildscript {
 	}
 }
 
-group = "cocktail.application"
-project.ext.artifact = "gfc-Services"
-project.ext.year = '2017'
 ext.generateJarFwks = false
 
 subprojects {
@@ -153,10 +150,11 @@ project(':app-spring') {
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'com.github.johnrengelman.shadow'
 	apply plugin: "com.gorylenko.gradle-git-properties"
+	apply plugin: 'maven'
 
 	jar {
 		baseName = 'gfc-services'
-		version = project.property('version')
+		version = version
 	}
 
 	bootRepackage  {
@@ -187,6 +185,17 @@ project(':app-spring') {
 	    
 	    testCompile('org.springframework.boot:spring-boot-starter-test')
     }
+
+	uploadArchives {
+		repositories.mavenDeployer {
+			repository(url: "http://nexus.intra-cocktail.org/content/repositories/cocktail/") {
+				authentication(userName: nexusUserName, password: nexusPassword)
+			}
+			pom.version = version
+			pom.groupId = 'cocktail.application'
+			pom.artifactId = 'gfc-services'
+		}
+	}
 }
 
 project(':app-wo') {
@@ -291,3 +300,4 @@ project(':depense:search:implementation') {
 		compile( project( ':depense:search:api' ) )
 	}
 }
+
