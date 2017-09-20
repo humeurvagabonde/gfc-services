@@ -153,7 +153,7 @@ project(':app-spring') {
 
 	jar {
 		baseName = 'gfc-services'
-		version = '1.0.0'
+		version = project.property('version')
 	}
 
 	bootRepackage  {
