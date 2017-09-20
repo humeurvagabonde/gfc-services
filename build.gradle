@@ -30,6 +30,9 @@ buildscript {
 	}
 }
 
+group = "cocktail.application"
+project.ext.artifact = "gfc-Services"
+project.ext.year = '2017'
 ext.generateJarFwks = false
 
 subprojects {
