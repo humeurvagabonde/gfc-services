@@ -153,12 +153,20 @@ project(':app-spring') {
 	apply plugin: 'com.github.johnrengelman.shadow'
 	apply plugin: "com.gorylenko.gradle-git-properties"
 	apply plugin: 'maven'
+	apply plugin: 'war'
 
 	def artifactVersion = project.property('version')
 
 	jar {
 		baseName = 'gfc-services'
 		version = artifactVersion
+	}
+
+	war {
+		baseName = 'gfc-services'
+		manifest {
+			attributes('Version': "${artifactVersion}")
+		}
 	}
 
 	bootRepackage  {
@@ -186,7 +194,9 @@ project(':app-spring') {
 	    compile 'commons-codec:commons-codec:1.10'
 	    compile 'com.oracle:ojdbc6:11.2.0.3'
 	    compile 'com.zaxxer:HikariCP:2.6.1'
-	    
+
+		providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
 	    testCompile('org.springframework.boot:spring-boot-starter-test')
     }
 
