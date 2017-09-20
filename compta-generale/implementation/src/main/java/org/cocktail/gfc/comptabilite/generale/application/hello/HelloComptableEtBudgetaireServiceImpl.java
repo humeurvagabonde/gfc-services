@@ -28,7 +28,7 @@ public class HelloComptableEtBudgetaireServiceImpl implements HelloComptableEtBu
     @Override
     public String hello() {
         LOGGER.info("Into compta generale hello method");
-        String hello = helloBudgetaireService.hello() + " et compta-generale";
+        String hello = helloBudgetaireService.hello() + " et compta-generale (bisous)";
         publisher.publishEvent(new HelloComptaGeneraleSentEvent());
         return hello;
     }

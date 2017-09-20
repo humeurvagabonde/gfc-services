@@ -13,7 +13,7 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
  */
 @SpringBootApplication
 public class GfcServicesApplication extends SpringBootServletInitializer {
-    
+
     public static void main(String[] args) {
         SpringApplication.run(GfcServicesApplication.class, args);
     }
