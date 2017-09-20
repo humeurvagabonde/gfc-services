@@ -19,6 +19,7 @@ import java.util.List;
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional
+@Ignore
 public class DemandePaiementApplicationServiceIntegTest {
 
     @Inject
