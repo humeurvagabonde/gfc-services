@@ -59,3 +59,5 @@ README.html
 /.apt_generated/
 .factorypath
 **/velocity.log*
+
+app-spring/hs_err_pid23045\.log

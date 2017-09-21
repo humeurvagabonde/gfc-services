@@ -9,18 +9,17 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.cocktail.gfc.comptabilite.generale.api.HelloComptableEtBudgetaireService;
+import org.cocktail.gfc.comptabilite.generale.api.ServiceDescriptor;
 
 @Named
 @Singleton
 @Path("/compta-generale")
 @Produces(MediaType.APPLICATION_JSON)
-public class EvenementComptableResource {
+public class EvenementComptableResource implements ServiceDescriptor {
 
     @Inject
     private HelloComptableEtBudgetaireService helloComptableEtBudgetaireService;
-    
-    @GET
-    @Path("/hello")
+
     public String hello() {
         return helloComptableEtBudgetaireService.hello();
     }

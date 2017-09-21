@@ -10,9 +10,11 @@ import org.springframework.context.ApplicationEventPublisher;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import javax.transaction.Transactional;
 
 @Named
 @Singleton
+@Transactional(rollbackOn = Exception.class)
 public class HelloComptableEtBudgetaireServiceImpl implements HelloComptableEtBudgetaireService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HelloComptableEtBudgetaireService.class);
@@ -26,7 +28,7 @@ public class HelloComptableEtBudgetaireServiceImpl implements HelloComptableEtBu
     @Override
     public String hello() {
         LOGGER.info("Into compta generale hello method");
-        String hello = helloBudgetaireService.hello() + " et compta-generale";
+        String hello = helloBudgetaireService.hello() + " et compta-generale (bisous)";
         publisher.publishEvent(new HelloComptaGeneraleSentEvent());
         return hello;
     }

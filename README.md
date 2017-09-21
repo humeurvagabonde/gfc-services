@@ -29,18 +29,18 @@ dans les filtres projet, ne pas cacher les .*resources ce qui permet de voir le 
 
 #### idea
 
-```
-$ ./gradlew idea
-Ouvrir (et non importer le projet dans Intellij IDEA
-Aller dans File > Settings > Build, Execution, Deployment > Gradle > Runner puis cocher Delegate IDE build/run actions to gradle
-Aller dans File > Settings > Build, Execution, Deployment > Compiler > Annotations Processors :
-  - cocher Enable annotation processing
-  - choisir Obtain processors from project classpath
-  - choisir module content root
-  - Production sources directory : build/generated/source/apt/main
-  - Test sources directory : build/generated/source/apt/test  
-Lancer Build > Rebuild project si besoin 
-```
+``` 
+$ ./gradlew idea 
+Ouvrir (et non importer le projet dans Intellij IDEA 
+Aller dans File > Settings > Build, Execution, Deployment > Gradle > Runner puis cocher Delegate IDE build/run actions to gradle 
+Aller dans File > Settings > Build, Execution, Deployment > Compiler > Annotations Processors : 
+  - cocher Enable annotation processing 
+  - choisir Obtain processors from project classpath 
+  - choisir module content root 
+  - Production sources directory : build/generated/source/apt/main 
+  - Test sources directory : build/generated/source/apt/test   
+Lancer Build > Rebuild project si besoin  
+``` 
 
 ## Lancer l'application
 
@@ -134,6 +134,7 @@ Plusieurs conventions existent :
 ## Divers
 
 - la config de la datasource a été remaniée pour surcharger la conf springboot afin d'intégrer les mdps cryptés (non testé)
+- utilisation de Kotlin-JPA-Spec pour generer des specs Spring data quisont ensuite transformer en Criteria JPA
 - la tâche de génération des queryDsl est en place pour les sous-projets search seulement
 - accès a spring actuator.
     - [Ressource Health](http://localhost:9001/health) : état de l'appli
@@ -156,7 +157,9 @@ Pour la branche Kotlin :
 - utiliser intellij idea
 - installer le plugin eclipse-kotlin depuis le marketplace
 
-Je n'ai utilisé que la feature "data class" pour le moment.
+On utilise les features de Kotlin suivantes :
+- les data class
+- la librairie jpa-spec
 
 Pour idea, il faut aussi configurer APT.
 
