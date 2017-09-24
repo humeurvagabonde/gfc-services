@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
@@ -23,6 +24,8 @@ import java.util.Arrays;
 @EnableAuthorizationServer
 public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
+    private static final String CLIENT_GFC_SERVICES = "gfc-services";
+
     @Inject
     private AuthenticationManager authenticationManager;
 
@@ -35,31 +38,40 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
                 .authenticationManager(authenticationManager);
     }
 
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        clients.inMemory()
+                .withClient(CLIENT_GFC_SERVICES)
+                .secret("acmesecret")
+                //.authorizedGrantTypes("authorization_code", "refresh_token", "password")
+                //.scopes("openid")
+                ;
+    }
+
     @Bean
-    public TokenStore tokenStore() {
+    TokenStore tokenStore() {
         return new JwtTokenStore(accessTokenConverter());
     }
 
     @Bean
-    public TokenEnhancer tokenEnhancer() {
+    TokenEnhancer tokenEnhancer() {
         return new TokenEnhancer() {
             @Override
             public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
                 return accessToken;
             }
-        }
+        };
     }
 
     @Bean
-    public JwtAccessTokenConverter accessTokenConverter() {
+    JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         converter.setSigningKey("123");
         return converter;
     }
 
     @Bean
-    @Primary
-    public DefaultTokenServices tokenServices() {
+    DefaultTokenServices tokenServices() {
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
         defaultTokenServices.setTokenStore(tokenStore());
         defaultTokenServices.setSupportRefreshToken(true);

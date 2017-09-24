@@ -8,6 +8,7 @@
  * in the user guide at https://docs.gradle.org/4.0.1/userguide/multi_project_builds.html
  */
 rootProject.name = 'gfc-services'
+include 'app-authorization-server'
 include 'app-spring'
 include 'app-wo'
 include 'depense:comptabilite:api'
@@ -25,6 +26,5 @@ include 'compta-budgetaire:api'
 include 'compta-budgetaire:implementation'
 include 'compta-generale:api'
 include 'compta-generale:implementation'
-include 'security-authorization'
 include 'security-resource'
 

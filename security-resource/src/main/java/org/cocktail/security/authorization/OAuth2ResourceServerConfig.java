@@ -15,9 +15,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
 @EnableAuthorizationServer
-public class OAuth2AuthorizationServerConfig extends ResourceServerConfigurerAdapter {
-
-
+public class OAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(ResourceServerSecurityConfigurer config) {
@@ -25,20 +23,19 @@ public class OAuth2AuthorizationServerConfig extends ResourceServerConfigurerAda
     }
 
     @Bean
-    public TokenStore tokenStore() {
+    TokenStore tokenStore() {
         return new JwtTokenStore(accessTokenConverter());
     }
 
     @Bean
-    public JwtAccessTokenConverter accessTokenConverter() {
+    JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         converter.setSigningKey("123");
         return converter;
     }
 
     @Bean
-    @Primary
-    public DefaultTokenServices tokenServices() {
+    DefaultTokenServices tokenServices() {
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
         defaultTokenServices.setTokenStore(tokenStore());
         defaultTokenServices.setSupportRefreshToken(true);

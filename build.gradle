@@ -149,6 +149,49 @@ configure(subprojects.findAll { it.path.contains('search') }) {
 	}
 }
 
+project(':app-authorization-server') {
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'maven'
+	apply plugin: 'war'
+
+	def artifactVersion = project.property('version')
+
+	jar {
+		baseName = 'gfc-auth-server'
+		version = artifactVersion
+	}
+
+	war {
+		baseName = 'gfc-auth-server'
+		manifest {
+			attributes('Version': "${artifactVersion}")
+		}
+	}
+
+	bootRepackage  {
+		mainClass = 'org.cocktail.gfc.security.GfcAuthServerApplication'
+	}
+
+	dependencies {
+		compile('org.springframework.boot:spring-boot-starter-web')
+		compile('org.springframework.boot:spring-boot-starter-security')
+		compile('org.springframework.security.oauth:spring-security-oauth2')
+		compile('org.springframework.security:spring-security-jwt')
+		compile('javax.inject:javax.inject:1')
+	}
+
+	uploadArchives {
+		repositories.mavenDeployer {
+			repository(url: "http://nexus.intra-cocktail.org/content/repositories/cocktail/") {
+				authentication(userName: nexusUserName, password: nexusPassword)
+			}
+			pom.version = artifactVersion
+			pom.groupId = 'cocktail.application'
+			pom.artifactId = 'gfc-auth-server'
+		}
+	}
+}
+
 project(':app-spring') {
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'com.github.johnrengelman.shadow'
@@ -188,6 +231,7 @@ project(':app-spring') {
 		compile( project( ':depense:financement:implementation' ) )
 		compile( project( ':depense:search:api' ) )
 		compile( project( ':depense:search:implementation' ) )
+		compile( project( ':security-resource' ) )
 	
 	    compile('org.springframework.boot:spring-boot-starter-actuator')
 	    compile('org.springframework.boot:spring-boot-starter-web')
@@ -313,15 +357,6 @@ project(':depense:financement:implementation') {
 project(':depense:search:implementation') {
 	dependencies {
 		compile( project( ':depense:search:api' ) )
-	}
-}
-
-project(':security-authorization') {
-	apply plugin: 'org.springframework.boot'
-	dependencies {
-		compile('org.springframework.boot:spring-boot-starter-security')
-		compile('org.springframework.security.oauth:spring-security-oauth2')
-		compile 'javax.inject:javax.inject:1'
 	}
 }
 
