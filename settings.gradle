@@ -25,4 +25,6 @@ include 'compta-budgetaire:api'
 include 'compta-budgetaire:implementation'
 include 'compta-generale:api'
 include 'compta-generale:implementation'
+include 'security-authorization'
+include 'security-resource'
 
