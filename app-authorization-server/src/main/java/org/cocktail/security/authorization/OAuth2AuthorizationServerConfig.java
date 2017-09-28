@@ -1,8 +1,7 @@
-package org.cocktail.security.authorization;
+package org.cocktail.security.ui;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -43,9 +42,8 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
         clients.inMemory()
                 .withClient(CLIENT_GFC_SERVICES)
                 .secret("acmesecret")
-                //.authorizedGrantTypes("authorization_code", "refresh_token", "password")
-                //.scopes("openid")
-                ;
+                .authorizedGrantTypes("authorization_code", "refresh_token", "password")
+                .scopes("openid");
     }
 
     @Bean

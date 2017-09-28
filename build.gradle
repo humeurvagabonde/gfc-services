@@ -149,7 +149,7 @@ configure(subprojects.findAll { it.path.contains('search') }) {
 	}
 }
 
-project(':app-authorization-server') {
+configure([project(':app-authorization-server'), project(':app-resource-server'), project(':app-ui')]) {
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'maven'
 	apply plugin: 'war'
@@ -178,6 +178,9 @@ project(':app-authorization-server') {
 		compile('org.springframework.security.oauth:spring-security-oauth2')
 		compile('org.springframework.security:spring-security-jwt')
 		compile('javax.inject:javax.inject:1')
+
+		// utile uniquement pour UI
+		compile('org.springframework.cloud:spring-cloud-starter-zuul:1.3.4.RELEASE')
 	}
 
 	uploadArchives {
@@ -231,8 +234,7 @@ project(':app-spring') {
 		compile( project( ':depense:financement:implementation' ) )
 		compile( project( ':depense:search:api' ) )
 		compile( project( ':depense:search:implementation' ) )
-		compile( project( ':security-resource' ) )
-	
+
 	    compile('org.springframework.boot:spring-boot-starter-actuator')
 	    compile('org.springframework.boot:spring-boot-starter-web')
 	    
@@ -357,14 +359,5 @@ project(':depense:financement:implementation') {
 project(':depense:search:implementation') {
 	dependencies {
 		compile( project( ':depense:search:api' ) )
-	}
-}
-
-project(':security-resource') {
-	apply plugin: 'org.springframework.boot'
-	dependencies {
-		compile('org.springframework.boot:spring-boot-starter-security')
-		compile('org.springframework.security.oauth:spring-security-oauth2')
-		compile 'javax.inject:javax.inject:1'
 	}
 }

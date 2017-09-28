@@ -1,13 +1,14 @@
-package org.cocktail.security.authorization;
+package org.cocktail.security.ui;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GfcAuthServerApplication {
+public class ResourceServerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(GfcAuthServerApplication.class, args);
+        SpringApplication.run(ResourceServerApplication.class, args);
     }
+
 
 }
