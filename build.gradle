@@ -256,7 +256,7 @@ project(':app-wo') {
 		compile( project( ':depense:search:implementation' ) )
 
 	    compile('org.springframework.boot:spring-boot-starter-web')
-	    compile "cocktail.libs:generateur-controleur-wo-runtime:0.1.0"
+	    compile "cocktail.outil:generateur-controleur-wo-runtime:0.1.0"
 	    compile "cocktail.fwk:FwkCktlRestServices:$fwkVersion"
 	    compile "com.oracle:ojdbc6:11.2.0.3"
 	    compile "org.reflections:reflections:0.9.9"
