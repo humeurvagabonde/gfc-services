@@ -1,7 +1,0 @@
-dbConnectURLGLOBAL = jdbc:oracle:thin:@bdoradev3.intra-cocktail.org:5221:devict01
-
-dbConnectUserGLOBAL = grhum 
-dbConnectPasswordGLOBAL.encrypted = false
-dbConnectPasswordGLOBAL = grhum
-
-org.cocktail.cktlrestservices.authkey.jwskey=dW5lQ2xlUG91clNpZ25lcg==

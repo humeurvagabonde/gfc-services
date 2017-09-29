@@ -9,7 +9,6 @@
  */
 rootProject.name = 'gfc-services'
 include 'app-spring'
-include 'app-wo'
 include 'depense:comptabilite:api'
 include 'depense:comptabilite:implementation'
 include 'depense:core:api'
