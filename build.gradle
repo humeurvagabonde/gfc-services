@@ -158,11 +158,6 @@ project(':app-spring') {
 
 	def artifactVersion = project.property('version')
 
-	jar {
-		baseName = 'gfc-services'
-		version = artifactVersion
-	}
-
 	war {
 		baseName = 'gfc-services'
 		manifest {
@@ -170,9 +165,10 @@ project(':app-spring') {
 		}
 	}
 
-	bootRepackage  {
-		mainClass = 'org.cocktail.gfc.GfcServicesApplication'
-	}
+//	bootRepackage  {
+//		mainClass = 'org.cocktail.gfc.GfcServicesApplication'
+//		classifier = 'exec'
+//	}
 
 	// TODO : discuter de ces dependances
 	dependencies {
