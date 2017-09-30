@@ -257,5 +257,6 @@ project(':depense:search:implementation') {
 	}
 }
 
-task packagewoapplication {
-}
+// Tâche gradle factice qui permet de ne pas faire échouer la chaine d'intégration continue
+// Jenkins délenche pour chaque job l'appel a build packagewoapplication uploadArchives
+task packagewoapplication
