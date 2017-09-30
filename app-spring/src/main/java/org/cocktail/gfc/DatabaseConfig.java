@@ -38,7 +38,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.nativejdbc.SimpleNativeJdbcExtractor;
 
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -73,12 +72,6 @@ public class DatabaseConfig {
         
         return ds;
     }
-//
-//    // Transactions
-//    @Bean
-//    public PlatformTransactionManager txManager(DataSource dataSource) {
-//        return new DataSourceTransactionManager(dataSource);
-//    }
 
     /**
      * Les PARAM_KEY_DEBUGSQL* servent au debug de plsql Voir <a href="https://wiki.asso-cocktail.fr/doku.php?id=production:cadre_de_developpement:standards_cocktail:debug_pl_sql">Wiki</a><br>
@@ -98,9 +91,6 @@ public class DatabaseConfig {
             HikariDataSource ds = (HikariDataSource) dataSource;
             ds.setConnectionInitSql("call DBMS_DEBUG_JDWP.CONNECT_TCP('" + host + "', '" + port + "')");
         }
-        JdbcTemplate ret = new JdbcTemplate(dataSource);
-        //Le SimpleNativeJdbcExtractor permet d'utiliser les VARRAY et TABLE comme paramètres des proc PL
-        ret.setNativeJdbcExtractor(new SimpleNativeJdbcExtractor());
-        return ret;
+        return new JdbcTemplate(dataSource);
     }
 }

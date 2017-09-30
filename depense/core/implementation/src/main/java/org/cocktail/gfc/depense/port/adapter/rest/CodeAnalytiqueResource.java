@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
 
 import javax.inject.Inject;
@@ -21,6 +22,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -38,7 +40,7 @@ public class CodeAnalytiqueResource implements ServiceDescriptor.CodeAnalytiqueS
     @Override
     public List<CodeAnalytiqueRepresentation> find(String code, String libelle) {
         CodeAnalytiqueQuery codesQuery = new CodeAnalytiqueQuery(code, libelle);
-        Specifications<CodeAnalytique> codesSpecs = CodeAnalytiqueQueryKt.toSpecification(codesQuery);
+        Specification<CodeAnalytique> codesSpecs = CodeAnalytiqueQueryKt.toSpecification(codesQuery);
         //Pageable pageRequest = new PageRequest(0, 10);
         Iterable<CodeAnalytique> codes = codeAnalytiqueRepository.findAll(codesSpecs);
         List<CodeAnalytiqueRepresentation> codesRepr =
@@ -52,8 +54,7 @@ public class CodeAnalytiqueResource implements ServiceDescriptor.CodeAnalytiqueS
 
     @Override
     public CodeAnalytiqueRepresentation getCodeAnalytique(String code) {
-        CodeAnalytique codeAnalytique =
-                codeAnalytiqueRepository.findOne(CodeAnalytiqueQueryKt.toSpecification(new CodeAnalytiqueQuery(code, null)));
-        return ApiMappers.CodeAnalytiqueMapper.INSTANCE.toApi(codeAnalytique);
+        Optional<CodeAnalytique> codeAnalytique = codeAnalytiqueRepository.findOne(CodeAnalytiqueQueryKt.toSpecification(new CodeAnalytiqueQuery(code, null)));
+        return codeAnalytique.map(ApiMappers.CodeAnalytiqueMapper.INSTANCE::toApi).orElseThrow(IllegalArgumentException::new);
     }
 }

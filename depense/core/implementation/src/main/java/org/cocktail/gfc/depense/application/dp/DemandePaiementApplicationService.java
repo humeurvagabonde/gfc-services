@@ -10,12 +10,15 @@ import org.cocktail.gfc.depense.metier.modele.dp.DemandePaiementLigne;
 import org.cocktail.gfc.depense.metier.modele.dp.DemandePaiementRepartArticle;
 import org.cocktail.gfc.depense.metier.modele.dp.DemandePaiementRepository;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Named
 @Singleton
@@ -29,9 +32,9 @@ public class DemandePaiementApplicationService implements DemandePaiementService
     private ApplicationEventPublisher publisher;
 
     public DemandePaiement charger(Long id) {
-        DemandePaiement dp = dpRepo.findOne(id);
-        List<DemandePaiementLigne> lignes =  dp.getRepartArticle().getLignes();
-        return dp;
+        Optional<DemandePaiement> maybeDp = dpRepo.findById(id);
+        maybeDp.ifPresent(dp -> dp.getRepartArticle().getLignes());
+        return maybeDp.get();
     }
 
     public void ajouterBienAPayer(Long id) {
@@ -46,10 +49,10 @@ public class DemandePaiementApplicationService implements DemandePaiementService
                 0L,
                 "DIRECTE");
 
-        DemandePaiement dp = dpRepo.findOne(id);
-        dp.getRepartArticle().getLignes().add(nxBien);
-
-        dpRepo.save(dp);
+        dpRepo.findById(id).ifPresent(dp -> {
+            dp.getRepartArticle().getLignes().add(nxBien);
+            dpRepo.save(dp);
+        });
     }
 
     @Override

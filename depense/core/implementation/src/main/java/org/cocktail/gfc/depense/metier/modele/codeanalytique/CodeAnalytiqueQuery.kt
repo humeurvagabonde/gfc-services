@@ -2,6 +2,7 @@ package org.cocktail.gfc.depense.metier.modele.codeanalytique
 
 import org.springframework.data.jpa.domain.Specifications
 import au.com.console.jpaspecificationdsl.*
+import org.springframework.data.jpa.domain.Specification
 
 data class CodeAnalytiqueQuery(
     val code: String? = null,
@@ -12,11 +13,11 @@ data class CodeAnalytiqueQuery(
 // Note: these functions return null for a null input. This means that when included in
 // and() or or() they will be ignored as if they weren't supplied.
 
-fun hasCode(code: String?): Specifications<CodeAnalytique>? = code?.let {
+fun hasCode(code: String?): Specification<CodeAnalytique>? = code?.let {
     CodeAnalytique::code.equal(it)
 }
 
-fun hasLibelle(libelle: String?): Specifications<CodeAnalytique>? = libelle?.let {
+fun hasLibelle(libelle: String?): Specification<CodeAnalytique>? = libelle?.let {
     CodeAnalytique::libelle.equal(it)
 }
 
@@ -25,8 +26,6 @@ fun hasLibelle(libelle: String?): Specifications<CodeAnalytique>? = libelle?.let
  * Note: any criteria that is null will be ignored (not included in the query).
  */
 // NOTE FLA: sortir cette fonction dans l'adapter persistence
-fun CodeAnalytiqueQuery.toSpecification(): Specifications<CodeAnalytique> = and(
-    hasCode(code),
-    hasLibelle(libelle)
-)
+fun CodeAnalytiqueQuery.toSpecification(): Specification<CodeAnalytique>? = hasCode(code)?.and(hasLibelle(libelle))
+
 
