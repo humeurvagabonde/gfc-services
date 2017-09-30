@@ -24,7 +24,7 @@
 package org.cocktail.gfc.common.bean.montant;
 
 import org.apache.commons.lang3.math.NumberUtils;
-import org.cocktail.gfc.common.beans.montant.ExchangeRateProvider.UnsupportedCurrenciesException;
+import org.cocktail.gfc.common.bean.montant.ExchangeRateProvider.UnsupportedCurrenciesException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
