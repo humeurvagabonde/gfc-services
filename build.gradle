@@ -165,11 +165,6 @@ project(':app-spring') {
 		}
 	}
 
-//	bootRepackage  {
-//		mainClass = 'org.cocktail.gfc.GfcServicesApplication'
-//		classifier = 'exec'
-//	}
-
 	// TODO : discuter de ces dependances
 	dependencies {
 		compile( project( ':compta-budgetaire:api' ) )
@@ -260,4 +255,7 @@ project(':depense:search:implementation') {
 	dependencies {
 		compile( project( ':depense:search:api' ) )
 	}
+}
+
+task packagewoapplication {
 }
