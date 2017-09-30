@@ -1,6 +1,5 @@
 package org.cocktail.gfc.depense.metier.modele.codeanalytique
 
-import org.springframework.data.jpa.domain.Specifications
 import au.com.console.jpaspecificationdsl.*
 import org.springframework.data.jpa.domain.Specification
 

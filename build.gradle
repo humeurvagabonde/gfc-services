@@ -11,7 +11,7 @@ buildscript {
     ext {
     	aptPluginVersion = '0.10'
 		kotlinVersion = '1.1.51'
-        springBootVersion = '2.0.0.M4'
+        springBootVersion = '2.0.0.BUILD-SNAPSHOT'
 	}
     repositories { 
     	mavenCentral()
@@ -33,8 +33,9 @@ apply plugin: 'cocktail'
 
 ext.generateJarFwks = false
 
-subprojects {
+subprojects { subproject ->
 
+	apply plugin: 'java' // java-library
     apply plugin: 'kotlin'
 	apply plugin: 'kotlin-spring'
 	apply plugin: 'kotlin-jpa'
@@ -58,6 +59,10 @@ subprojects {
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
+
+//	configurations {
+//		jar.archiveName = "${subproject.path}.jar"
+//	}
 
 	configurations { drivers }
 
@@ -97,7 +102,10 @@ configure(subprojects.findAll { it.name.contains('api') }) {
 configure(subprojects.findAll { it.name.contains('implementation') }) {
 
 	apply plugin: 'org.springframework.boot'
-    apply plugin: 'io.spring.dependency-management'
+	apply plugin: 'io.spring.dependency-management'
+
+	jar.enabled = true
+	bootJar.enabled = false
 
     dependencies {
 		compile( project( ':common:common-persistence' ) )
@@ -146,15 +154,15 @@ configure(subprojects.findAll { it.path.contains('search') }) {
 
 project(':app-spring') {
 
+	apply plugin: 'war'
+	apply plugin: 'maven'
 	apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
 	apply plugin: "com.gorylenko.gradle-git-properties"
-	apply plugin: 'maven'
-	apply plugin: 'war'
 
 	def artifactVersion = project.property('version')
 
-	war {
+	bootWar {
 		baseName = 'gfc-services'
 		manifest {
 			attributes('Version': "${artifactVersion}")
