@@ -1,0 +1,7 @@
+
+  ___  ____  ___
+ / __)(  __)/ __)
+( (_ \ ) _)( (__
+ \___/(__)  \___)
+
+:: Built with Spring Boot :: ${spring-boot.version}
