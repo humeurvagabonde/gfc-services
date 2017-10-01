@@ -60,14 +60,6 @@ subprojects { subproject ->
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
-	tasks.withType(Jar) {
-		baseName = "datalogger-$project.displayName"
-	}
-
-//	configurations {
-//		jar.archiveName = "${subproject.path}.jar"
-//	}
-
 	configurations { drivers }
 
     sourceSets {
@@ -99,7 +91,6 @@ configure(subprojects.findAll { it.name.contains('api') }) {
 		compile 'io.github.openfeign:feign-jaxrs:9.0.0'
 		compile 'io.github.openfeign:feign-slf4j:9.0.0'
 		compile 'io.github.openfeign:feign-gson:9.0.0'
-		compileOnly project(':common:common-configuration-internal')
 	}
 }
 
@@ -175,18 +166,18 @@ project(':app-spring') {
 
 	// TODO : discuter de ces dependances
 	dependencies {
-		compile( project( ':compta-budgetaire:api' ) )
-		compile( project( ':compta-budgetaire:implementation' ) )
-		compile( project( ':compta-generale:api' ) )
-		compile( project( ':compta-generale:implementation' ) )
-		compile( project( ':depense:comptabilite:api' ) )
-		compile( project( ':depense:comptabilite:implementation' ) )
-		compile( project( ':depense:core:api' ) )
-		compile( project( ':depense:core:implementation' ) )
-		compile( project( ':depense:financement:api' ) )
-		compile( project( ':depense:financement:implementation' ) )
-		compile( project( ':depense:search:api' ) )
-		compile( project( ':depense:search:implementation' ) )
+		compile( project( ':compta-budgetaire:compta-budgetaire-api' ) )
+		compile( project( ':compta-budgetaire:compta-budgetaire-implementation' ) )
+		compile( project( ':compta-generale:compta-generale-api' ) )
+		compile( project( ':compta-generale:compta-generale-implementation' ) )
+		compile( project( ':depense:depense-comptabilite:depense-comptabilite-api' ) )
+		compile( project( ':depense:depense-comptabilite:depense-comptabilite-implementation' ) )
+		compile( project( ':depense:depense-core:depense-core-api' ) )
+		compile( project( ':depense:depense-core:depense-core-implementation' ) )
+		compile( project( ':depense:depense-financement:depense-financement-api' ) )
+		compile( project( ':depense:depense-financement:depense-financement-implementation' ) )
+		compile( project( ':depense:depense-search:depense-search-api' ) )
+		compile( project( ':depense:depense-search:depense-search-implementation' ) )
 
         compile('org.springframework.boot:spring-boot-starter')
 	    
@@ -220,47 +211,47 @@ project(':common:common-bean') {
 
 project(':common:common-persistence') {
 	dependencies {
-		compile project(':common:common-bean')
+		compile( project(':common:common-bean') )
 		compile 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final'
 	}
 }
 
-project(':compta-budgetaire:implementation') {
+project(':compta-budgetaire:compta-budgetaire-implementation') {
 	dependencies {
-		compile( project( ':compta-budgetaire:api' ) )
+		compile( project( ':compta-budgetaire:compta-budgetaire-api' ) )
 	}
 }
 
-project(':compta-generale:implementation') {
+project(':compta-generale:compta-generale-implementation') {
 	dependencies {
-		compile( project( ':compta-budgetaire:api' ) )
-		compile( project( ':compta-generale:api' ) )
+		compile( project( ':compta-budgetaire:compta-budgetaire-api' ) )
+		compile( project( ':compta-generale:compta-generale-api' ) )
 	}
 }
 
-project(':depense:comptabilite:implementation') {
+project(':depense:depense-comptabilite:depense-comptabilite-implementation') {
 	dependencies {
-        compile( project( ':compta-generale:api' ) )
-        compile( project( ':depense:comptabilite:api' ) )
-		compile( project( ':depense:core:api' ) )
+        compile( project( ':compta-generale:compta-generale-api' ) )
+        compile( project( ':depense:depense-comptabilite:depense-comptabilite-api' ) )
+		compile( project( ':depense:depense-core:depense-core-api' ) )
 	}
 }
 
-project(':depense:core:implementation') {
+project(':depense:depense-core:depense-core-implementation') {
 	dependencies {
-		compile( project( ':depense:core:api' ) )
+		compile( project( ':depense:depense-core:depense-core-api' ) )
 	}
 }
 
-project(':depense:financement:implementation') {
+project(':depense:depense-financement:depense-financement-implementation') {
 	dependencies {
-		compile( project( ':depense:financement:api' ) )
+		compile( project( ':depense:depense-financement:depense-financement-api' ) )
 	}
 }
 
-project(':depense:search:implementation') {
+project(':depense:depense-search:depense-search-implementation') {
 	dependencies {
-		compile( project( ':depense:search:api' ) )
+		compile( project( ':depense:depense-search:depense-search-api' ) )
 	}
 }
 

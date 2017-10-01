@@ -1,6 +1,5 @@
 package org.cocktail.gfc.common.persistence;
 
-import org.cocktail.gfc.common.bean.montant.Montant;
 import org.cocktail.gfc.common.bean.montant.Quantite;
 
 import javax.persistence.AttributeConverter;

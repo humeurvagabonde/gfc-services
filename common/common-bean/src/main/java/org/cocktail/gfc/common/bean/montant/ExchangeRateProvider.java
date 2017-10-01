@@ -1,4 +1,4 @@
-package org.cocktail.gfc.common.beans.montant;
+package org.cocktail.gfc.common.bean.montant;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

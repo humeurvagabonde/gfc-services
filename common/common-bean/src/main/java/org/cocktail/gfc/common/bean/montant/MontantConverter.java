@@ -1,7 +1,7 @@
 package org.cocktail.gfc.common.bean.montant;
 
-import org.cocktail.gfc.common.beans.montant.ExchangeRateProvider;
-import org.cocktail.gfc.common.beans.montant.ExchangeRateProvider.UnsupportedCurrenciesException;
+import org.cocktail.gfc.common.bean.montant.ExchangeRateProvider;
+import org.cocktail.gfc.common.bean.montant.ExchangeRateProvider.UnsupportedCurrenciesException;
 
 import java.math.BigDecimal;
 import java.util.Currency;

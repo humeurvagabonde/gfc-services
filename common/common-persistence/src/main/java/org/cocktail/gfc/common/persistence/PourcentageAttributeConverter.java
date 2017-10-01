@@ -1,8 +1,6 @@
 package org.cocktail.gfc.common.persistence;
 
 import org.cocktail.gfc.common.bean.montant.Pourcentage;
-import org.cocktail.gfc.common.bean.montant.Quantite;
-
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 import java.math.BigDecimal;
