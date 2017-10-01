@@ -4,6 +4,10 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.ws.rs.ApplicationPath;
 
+import org.cocktail.gfc.comptabilite.budgetaire.port.adapter.rest.EvenementBudgetaireResource;
+import org.cocktail.gfc.comptabilite.generale.port.adapter.rest.EvenementComptableResource;
+import org.cocktail.gfc.depense.port.adapter.rest.CodeAnalytiqueResource;
+import org.cocktail.gfc.depense.port.adapter.rest.DemandePaiementResource;
 import org.glassfish.jersey.server.ResourceConfig;
 
 @Named
@@ -17,9 +21,9 @@ public class GfcJerseyConfig extends ResourceConfig {
 
 //        packages(GfcJerseyConfig.class.getPackage().getName());
 
-//        register(CodeAnalytiqueResource.class);
-//        register(EvenementBudgetaireResource.class);
-//        register(EvenementComptableResource.class);
-//        register(DemandePaiementResource.class);
+        register(CodeAnalytiqueResource.class);
+        register(EvenementBudgetaireResource.class);
+        register(EvenementComptableResource.class);
+        register(DemandePaiementResource.class);
     }
 }
