@@ -154,12 +154,13 @@ project(':app-spring') {
 
 	def artifactVersion = project.property('version')
 
-	bootWar {
-		baseName = 'gfc-services'
-		manifest {
-			attributes('Version': "${artifactVersion}")
-		}
-	}
+	war.baseName = 'gfc-services'
+    bootWar {
+        baseName = 'gfc-services'
+        manifest {
+            attributes('Version': "${artifactVersion}")
+        }
+    }
 
 	// TODO : discuter de ces dependances
 	dependencies {
