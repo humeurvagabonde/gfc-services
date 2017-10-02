@@ -1,4 +1,4 @@
-package org.cocktail.security.ui;
+package org.cocktail.security.authorization;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
