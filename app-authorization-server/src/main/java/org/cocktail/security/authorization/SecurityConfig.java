@@ -10,11 +10,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.
-                authorizeRequests()
-                    .antMatchers("/login").permitAll().and()
+                 authorizeRequests()
+                    .antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access").permitAll().and()
                 // default protection for all resources (including /oauth/authorize)
                 .authorizeRequests()
-                    .anyRequest().hasRole("USER")
+                    .anyRequest()
+                    .authenticated().and()
+                .formLogin()
+                .permitAll();
+                    
                 // ... more configuration, e.g. for form login
             ;
     }
