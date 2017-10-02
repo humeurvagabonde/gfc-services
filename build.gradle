@@ -84,10 +84,10 @@ configure(subprojects.findAll { it.name.contains('api') }) {
 
 	dependencies {
 		compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
-		compile 'io.github.openfeign:feign-core:9.0.0'
-		compile 'io.github.openfeign:feign-jaxrs:9.0.0'
-		compile 'io.github.openfeign:feign-slf4j:9.0.0'
-		compile 'io.github.openfeign:feign-gson:9.0.0'
+//		compile 'io.github.openfeign:feign-core:9.0.0'
+//		compile 'io.github.openfeign:feign-jaxrs:9.0.0'
+//		compile 'io.github.openfeign:feign-slf4j:9.0.0'
+//		compile 'io.github.openfeign:feign-gson:9.0.0'
 	}
 }
 
