@@ -1,0 +1,51 @@
+server:
+  port: 9000
+management:
+  port: 9001
+  address: 127.0.0.1
+  security:
+    enabled: false
+
+# security
+security:
+  user:
+    password: none
+  oauth2:
+    client:
+      accessTokenUri: http://localhost:9999/uaa/oauth/token
+      userAuthorizationUri: http://localhost:9999/uaa/oauth/authorize
+      clientId: gfc-services
+      clientSecret: acmesecret
+    resource:
+      jwt:
+        keyValue: 123
+      userInfoUri: http://localhost:9999/uaa/user
+
+# Datasource settings
+# jdbc:oracle:thin:@192.168.56.4:1521:pgiref02
+cktl:
+  datasource:
+    url: jdbc:oracle:thin:@bdoradev3.intra-cocktail.org:5221:devict01
+    username: grhum
+    password: grhum
+    driverClassName: oracle.jdbc.OracleDriver
+    connectionTimeout: 60000
+    poolName: gfc-Services-Hikari-Pool
+    autoCommit: false
+#cktl.datasource.maximum-pool-size=5
+#cktl.datasource.auto-register-mbeans=true
+
+# JPA
+spring:
+  jpa:
+    databasePlatform: org.hibernate.dialect.Oracle10gDialect
+    properties:
+      hibernate:
+        default_schema: GFC
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.cocktail.gfc: DEBUG
+

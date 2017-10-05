@@ -40,7 +40,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
         clients.inMemory()
                 .withClient(CLIENT_GFC_SERVICES)
                 .secret("acmesecret")
-                .authorizedGrantTypes("authorization_code", "refresh_token", "password")
+                .authorizedGrantTypes("authorization_code", "refresh_token", "password", "client_credentials")
                 .scopes("openid");
     }
 
