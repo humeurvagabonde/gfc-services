@@ -10,10 +10,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
-import org.springframework.security.oauth2.provider.token.TokenEnhancer;
-import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
-import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.*;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
@@ -29,6 +26,15 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Inject
     private AuthenticationManager authenticationManager;
 
+    @Inject
+    private TokenEnhancer tokenEnhancer;
+
+    @Inject
+    private JwtAccessTokenConverter accessTokenConverter;
+
+    @Inject
+    private TokenStore tokenStore;
+
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
@@ -41,39 +47,9 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), accessTokenConverter()));
-        endpoints.tokenStore(tokenStore())
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer, accessTokenConverter));
+        endpoints.tokenStore(tokenStore)
                 .tokenEnhancer(tokenEnhancerChain)
                 .authenticationManager(authenticationManager);
-    }
-
-    @Bean
-    TokenStore tokenStore() {
-        return new JwtTokenStore(accessTokenConverter());
-    }
-
-    @Bean
-    TokenEnhancer tokenEnhancer() {
-        return new TokenEnhancer() {
-            @Override
-            public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-                return accessToken;
-            }
-        };
-    }
-
-    @Bean
-    JwtAccessTokenConverter accessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey("123");
-        return converter;
-    }
-
-    @Bean
-    DefaultTokenServices tokenServices() {
-        DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
-        defaultTokenServices.setTokenStore(tokenStore());
-        defaultTokenServices.setSupportRefreshToken(true);
-        return defaultTokenServices;
     }
 }

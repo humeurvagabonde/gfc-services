@@ -149,7 +149,7 @@ configure(subprojects.findAll { it.path.contains('search') }) {
 	}
 }
 
-configure([project(':app-authorization-server'), project(':app-resource-server'), project(':app-ui')]) {
+configure([project(':app-oauth2-server')]) {
 	apply plugin: 'org.springframework.boot'
 	apply plugin: 'maven'
 	apply plugin: 'war'
@@ -157,12 +157,12 @@ configure([project(':app-authorization-server'), project(':app-resource-server')
 	def artifactVersion = project.property('version')
 
 	jar {
-		baseName = 'gfc-auth-server'
+		baseName = 'gfc-oauth2-server'
 		version = artifactVersion
 	}
 
 	war {
-		baseName = 'gfc-auth-server'
+		baseName = 'gfc-oauth2-server'
 		manifest {
 			attributes('Version': "${artifactVersion}")
 		}
@@ -178,9 +178,6 @@ configure([project(':app-authorization-server'), project(':app-resource-server')
 		compile('org.springframework.security.oauth:spring-security-oauth2')
 		compile('org.springframework.security:spring-security-jwt')
 		compile('javax.inject:javax.inject:1')
-
-		// utile uniquement pour UI
-		compile('org.springframework.cloud:spring-cloud-starter-zuul:1.3.4.RELEASE')
 	}
 
 	uploadArchives {
@@ -190,7 +187,7 @@ configure([project(':app-authorization-server'), project(':app-resource-server')
 			}
 			pom.version = artifactVersion
 			pom.groupId = 'cocktail.application'
-			pom.artifactId = 'gfc-auth-server'
+			pom.artifactId = 'gfc-oauth2-server'
 		}
 	}
 }
@@ -237,6 +234,7 @@ project(':app-spring') {
 
 	    compile('org.springframework.boot:spring-boot-starter-actuator')
 	    compile('org.springframework.boot:spring-boot-starter-web')
+		compile('org.springframework.security.oauth:spring-security-oauth2')
 	    
 	    compile 'commons-codec:commons-codec:1.10'
 	    compile 'com.oracle:ojdbc6:11.2.0.3'

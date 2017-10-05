@@ -8,10 +8,8 @@
  * in the user guide at https://docs.gradle.org/4.0.1/userguide/multi_project_builds.html
  */
 rootProject.name = 'gfc-services'
-include 'app-authorization-server'
-include 'app-resource-server'
+include 'app-oauth2-server'
 include 'app-spring'
-include 'app-ui'
 include 'app-wo'
 include 'depense:comptabilite:api'
 include 'depense:comptabilite:implementation'
