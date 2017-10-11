@@ -5,6 +5,10 @@ buildscript {
     	aptPluginVersion = '0.10'
 		kotlinVersion = '1.1.51'
         springBootVersion = '2.0.0.BUILD-SNAPSHOT'
+		cktlPlatformVersion = '1.4.2'
+		gitPropsVersion = '1.4.17'
+		coberturaVersion = '2.5.0'
+		sonarqubeVersion = '2.5'
 	}
     repositories { 
     	mavenCentral()
@@ -18,11 +22,16 @@ buildscript {
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
 		classpath "org.jetbrains.kotlin:kotlin-noarg:${kotlinVersion}"
 		classpath "org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}"
-		classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.4.17"
+		classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:${gitPropsVersion}"
+		classpath "cocktail.platform.sonar:cocktail.platform.sonar.gradle.plugin:${cktlPlatformVersion}"
+		classpath "cocktail.platform.cobertura:cocktail.platform.cobertura.gradle.plugin:${cktlPlatformVersion}"
+		classpath "net.saliman:gradle-cobertura-plugin:${coberturaVersion}"
+		classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:${sonarqubeVersion}"
 	}
 }
 
 apply plugin: 'cocktail'
+apply plugin: "org.sonarqube"
 
 ext.generateJarFwks = false
 
@@ -35,6 +44,10 @@ subprojects { subproject ->
     apply plugin: 'idea'
     apply plugin: 'net.ltgt.apt'
 	apply plugin: 'checkstyle'
+	apply plugin: 'net.saliman.cobertura'
+	apply plugin: 'cocktail.platform.cobertura'
+	apply plugin: 'cocktail.platform.sonar'
+
 
     repositories {
         mavenCentral()
