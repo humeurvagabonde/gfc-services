@@ -7,7 +7,6 @@ buildscript {
         springBootVersion = '2.0.0.BUILD-SNAPSHOT'
 		cktlPlatformVersion = '1.4.2'
 		gitPropsVersion = '1.4.17'
-		coberturaVersion = '2.5.0'
 		sonarqubeVersion = '2.5'
 	}
     repositories { 
@@ -24,8 +23,6 @@ buildscript {
 		classpath "org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}"
 		classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:${gitPropsVersion}"
 		classpath "cocktail.platform.sonar:cocktail.platform.sonar.gradle.plugin:${cktlPlatformVersion}"
-		classpath "cocktail.platform.cobertura:cocktail.platform.cobertura.gradle.plugin:${cktlPlatformVersion}"
-		classpath "net.saliman:gradle-cobertura-plugin:${coberturaVersion}"
 		classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:${sonarqubeVersion}"
 	}
 }
@@ -44,8 +41,7 @@ subprojects { subproject ->
     apply plugin: 'idea'
     apply plugin: 'net.ltgt.apt'
 	apply plugin: 'checkstyle'
-	apply plugin: 'net.saliman.cobertura'
-	apply plugin: 'cocktail.platform.cobertura'
+    apply plugin: 'jacoco'
 	apply plugin: 'cocktail.platform.sonar'
 
 
@@ -196,7 +192,7 @@ project(':app-spring') {
 	    compile 'com.oracle:ojdbc6:11.2.0.3'
 	    compile 'com.zaxxer:HikariCP:2.6.1'
 
-		providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+        compile 'org.springframework.boot:spring-boot-starter-tomcat'
 
 	    testCompile('org.springframework.boot:spring-boot-starter-test')
     }
