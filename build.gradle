@@ -1,7 +1,20 @@
 buildscript {
-	dependencies {
-		classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.0.0.M7'
-	}
+    ext {
+	    springBootVersion = '2.0.0.M7'
+    }
+    repositories {
+        maven {
+            credentials {
+                username cocktailRepositoryUserName
+                password cocktailRepositoryPassword
+            }
+            url cocktailRepositoryUrl
+        }
+	    maven { url 'https://repo.spring.io/libs-milestone' }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
 plugins {
@@ -9,13 +22,28 @@ plugins {
   id "org.sonarqube" version "2.6.1"
   id "nebula.maven-publish" version "5.1.0" apply false
   id "com.gorylenko.gradle-git-properties" version "1.4.17" apply false
-  id "cocktail.platform.javageneral" version "1.9.0" apply false
-  id "cocktail.platform.maven" version "1.9.0" apply false
+ // id "cocktail.platform.maven" version "1.9.0" apply false
 }
+
+allprojects {
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+        mavenLocal()
+        maven {
+            credentials {
+                username nexusDevUserName
+                password nexusDevPassword
+            }
+            url "http://nexus.intra-cocktail.org/content/groups/public/"
+        }
+    }
+}
+
 
 project(':application') {
 
-    apply plugin: "cocktail.platform.javageneral"
     apply plugin: 'java'
 	apply plugin: 'war'
 	apply plugin: 'nebula.maven-publish'

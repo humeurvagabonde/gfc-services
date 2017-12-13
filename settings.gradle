@@ -1,17 +1,2 @@
-pluginManagement {
-    repositories {
-        maven {
-            credentials {
-                username cocktailRepositoryUserName
-                password cocktailRepositoryPassword
-            }
-            url cocktailRepositoryUrl
-        }
-        gradlePluginPortal()
-        maven { url 'https://repo.spring.io/libs-milestone' }
-        maven { url "https://repo.spring.io/milestone" }
-    }
-}
-
 rootProject.name = 'gfc-services'
 include 'application'
