@@ -1,7 +1,4 @@
 buildscript {
-    ext {
-	    springBootVersion = '2.0.0.M7'
-    }
     repositories {
         maven {
             credentials {
@@ -11,7 +8,12 @@ buildscript {
             url cocktailRepositoryUrl
         }
 	    maven { url 'https://repo.spring.io/libs-milestone' }
+    }    
+
+    ext {
+	    springBootVersion = '2.0.0.M7'
     }
+    
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
@@ -22,7 +24,6 @@ plugins {
   id "org.sonarqube" version "2.6.1"
   id "nebula.maven-publish" version "5.1.0" apply false
   id "com.gorylenko.gradle-git-properties" version "1.4.17" apply false
- // id "cocktail.platform.maven" version "1.9.0" apply false
 }
 
 allprojects {
@@ -73,7 +74,6 @@ configure(subprojects.findAll { it.name.contains('module') }) {
 
 	apply plugin: 'java'
     apply plugin: 'jacoco'
-	apply plugin: 'cocktail.platform.sonar'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
