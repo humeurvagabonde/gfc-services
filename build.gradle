@@ -40,12 +40,15 @@ allprojects {
             url "http://nexus.intra-cocktail.org/content/groups/public/"
         }
     }
+
+    apply plugin: 'java'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 }
 
 
 project(':application') {
-
-    apply plugin: 'java'
 	apply plugin: 'war'
 	apply plugin: 'nebula.maven-publish'
 	apply plugin: 'org.springframework.boot'
@@ -53,30 +56,28 @@ project(':application') {
 	apply plugin: "com.gorylenko.gradle-git-properties"
     apply plugin: 'jacoco'
 
-/*
-	war.baseName = 'gfc-services'
-    bootWar {
-        baseName = 'gfc-services'
+    def artifactName = rootProject.property('name')
+    def artifactVersion = project.property('version')
+	bootWar {
+        baseName = "${artifactName}"
         manifest {
             attributes('Version': "${artifactVersion}")
         }
     }
-*/
 
 	dependencies {
-        compile('org.springframework.boot:spring-boot-starter')
+        compile 'org.springframework.boot:spring-boot-starter'
+        compile 'org.springframework.boot:spring-boot-starter-web'
+        compile 'org.springframework.boot:spring-boot-starter-actuator'
         compile 'org.springframework.boot:spring-boot-starter-tomcat'
-	    testCompile('org.springframework.boot:spring-boot-starter-test')
+
+	    testCompile 'org.springframework.boot:spring-boot-starter-test'
     }
 }
 
 configure(subprojects.findAll { it.name.contains('module') }) {
 
-	apply plugin: 'java'
     apply plugin: 'jacoco'
-
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
 
 	checkstyle {
 		toolVersion '8.1'
