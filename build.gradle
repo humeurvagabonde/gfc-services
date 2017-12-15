@@ -50,6 +50,7 @@ allprojects {
 
 project(':application') {
 	apply plugin: 'war'
+    apply plugin: 'maven'
 	apply plugin: 'nebula.maven-publish'
 	apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
@@ -73,6 +74,18 @@ project(':application') {
 
 	    testCompile 'org.springframework.boot:spring-boot-starter-test'
     }
+
+    uploadArchives {
+        repositories.mavenDeployer {
+            repository(url: "http://nexus.intra-cocktail.org/content/repositories/cocktail/") {
+                authentication(userName: nexusUserName, password: nexusPassword)
+            }
+            pom.version = artifactVersion
+            pom.groupId = 'cocktail.application'
+            pom.artifactId = 'gfc-services'
+        }
+    }
+
 }
 
 configure(subprojects.findAll { it.name.contains('module') }) {
