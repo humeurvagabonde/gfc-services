@@ -21,24 +21,23 @@ buildscript {
 
 plugins {
   id "io.spring.dependency-management" version "1.0.4.RELEASE" apply false
-  id "org.sonarqube" version "2.6.1"
   id "nebula.maven-publish" version "5.1.0" apply false
-  id "com.gorylenko.gradle-git-properties" version "1.4.17" apply false
+  id "org.sonarqube" version "2.6.1" apply false
 }
 
-allprojects {
+subprojects {
     repositories {
+        maven {
+            credentials {
+                username cocktailRepositoryUserName
+                password cocktailRepositoryPassword
+            }
+            url cocktailRepositoryUrl
+        }
         mavenCentral()
         maven { url "https://repo.spring.io/snapshot" }
         maven { url "https://repo.spring.io/milestone" }
         mavenLocal()
-        maven {
-            credentials {
-                username nexusDevUserName
-                password nexusDevPassword
-            }
-            url "http://nexus.intra-cocktail.org/content/groups/public/"
-        }
     }
 
     apply plugin: 'java'
@@ -47,24 +46,14 @@ allprojects {
     targetCompatibility = 1.8
 }
 
-
-project(':application') {
+project(':app-gfc-services') {
 	apply plugin: 'war'
-    apply plugin: 'maven'
 	apply plugin: 'nebula.maven-publish'
 	apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
-	apply plugin: "com.gorylenko.gradle-git-properties"
     apply plugin: 'jacoco'
 
-    def artifactName = rootProject.property('name')
-    def artifactVersion = project.property('version')
-	bootWar {
-        baseName = "${artifactName}"
-        manifest {
-            attributes('Version': "${artifactVersion}")
-        }
-    }
+    group = 'cocktail.application'
 
 	dependencies {
         compile 'org.springframework.boot:spring-boot-starter'
@@ -75,32 +64,20 @@ project(':application') {
 	    testCompile 'org.springframework.boot:spring-boot-starter-test'
     }
 
-    uploadArchives {
-        repositories.mavenDeployer {
-            repository(url: "http://nexus.intra-cocktail.org/content/repositories/cocktail/") {
-                authentication(userName: nexusUserName, password: nexusPassword)
+    publishing {
+        repositories {
+            maven {
+                url cocktailPublishRepositoryUrl
+                credentials {
+                    username nexusDevUserName
+                    password nexusDevPassword
+                }  
             }
-            pom.version = artifactVersion
-            pom.groupId = 'cocktail.application'
-            pom.artifactId = 'gfc-services'
         }
     }
 
-}
+    task uploadArchives(dependsOn: publish)
 
-configure(subprojects.findAll { it.name.contains('module') }) {
-
-    apply plugin: 'jacoco'
-
-	checkstyle {
-		toolVersion '8.1'
-		configFile = rootProject.file("config/checkstyle/checkstyle.xml")
-	}
-
-	dependencies {
-        testCompile 'junit:junit:4.12'
-		checkstyle "com.github.sevntu-checkstyle:sevntu-checks:1.24.2"
-	}
 }
 
 // Tâche gradle factice qui permet de ne pas faire échouer la chaine d'intégration continue
