@@ -69,8 +69,8 @@ project(':app-gfc-services') {
             maven {
                 url cocktailPublishRepositoryUrl
                 credentials {
-                    username nexusDevUserName
-                    password nexusDevPassword
+                    username cocktailRepositoryUserName
+                    password cocktailRepositoryPassword
                 }  
             }
         }
